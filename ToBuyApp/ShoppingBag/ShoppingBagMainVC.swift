@@ -11,6 +11,17 @@ final class ShoppingBagMainVC:BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+    }
+    override func configHierarchy() {
+        
     }
     
+    override func configLayout() {
+        
+    }
+    
+    override func configView() {
+        
+    }
 }
