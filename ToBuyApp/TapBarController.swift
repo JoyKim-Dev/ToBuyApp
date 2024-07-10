@@ -16,13 +16,13 @@ final class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = Color.darkGray
         
         let shoppingBagVC = UINavigationController(rootViewController: ShoppingBagMainVC())
-        shoppingBagVC.tabBarItem = UITabBarItem(title: "찜", image: Icon.likeUnSelected, tag: 2)
+        shoppingBagVC.tabBarItem = UITabBarItem(title: "찜", image: Icon.likeUnSelected, tag: 0)
         
        let  searchVC =  UINavigationController(rootViewController: SearchMainVC())
-        searchVC.tabBarItem = UITabBarItem(title: "검색", image: Icon.search, tag: 0)
+        searchVC.tabBarItem = UITabBarItem(title: "검색", image: Icon.search, tag: 1)
         
         let profileVC = UINavigationController(rootViewController: ProfileMainVC())
-        profileVC.tabBarItem = UITabBarItem(title: "설정", image: Icon.person, tag: 1)
+        profileVC.tabBarItem = UITabBarItem(title: "설정", image: Icon.person, tag: 2)
         
         
 

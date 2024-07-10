@@ -6,3 +6,9 @@
 //
 
 import UIKit
+
+final class ProfileNicknameVC: BaseViewController {
+    
+    
+    
+}
