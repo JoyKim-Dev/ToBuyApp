@@ -9,7 +9,7 @@ import UIKit
 
 extension UIViewController {
     
-    func configureView(_ navTitle: String) {
+    func setNavTitle(_ navTitle: String) {
         navigationItem.title = navTitle
     }
     

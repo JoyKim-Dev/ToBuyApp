@@ -7,14 +7,15 @@
 
 import Foundation
 
-enum TextFieldValidationError: Error {
+enum TextFieldValidation: Error {
     case emptyString
     case tooShortOrTooLong
     case isInt
     case containsSymbol
     case containsBlank
+    case valid
     
-    var text: String {
+    var value: String {
         switch self {
         case .emptyString:
             "닉네임을 입력해주세요"
@@ -26,6 +27,8 @@ enum TextFieldValidationError: Error {
             "닉네임에 @, #, $, % 는 포함할 수 없어요"
         case .containsBlank:
             "문자 사이 공백을 포함할 수 없어요"
+        case.valid:
+            "사용할 수 있는 닉네입이에요"
         }
     }
 }

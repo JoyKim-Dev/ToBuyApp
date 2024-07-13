@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		350215552C3FC33300D2FC74 /* Placeholder + Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350215542C3FC33300D2FC74 /* Placeholder + Enum.swift */; };
+		350215572C3FD1E400D2FC74 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350215562C3FD1E400D2FC74 /* UserDefaultsManager.swift */; };
 		3504697A2C3EBFAF00F3FB9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469792C3EBFAF00F3FB9A /* AppDelegate.swift */; };
 		3504697C2C3EBFAF00F3FB9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3504697B2C3EBFAF00F3FB9A /* SceneDelegate.swift */; };
 		3504697E2C3EBFAF00F3FB9A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3504697D2C3EBFAF00F3FB9A /* ViewController.swift */; };
@@ -70,7 +72,8 @@
 		35046A112C3EDA3C00F3FB9A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A102C3EDA3C00F3FB9A /* SearchBar.swift */; };
 		35046A132C3EDA7B00F3FB9A /* shoppingBagBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A122C3EDA7B00F3FB9A /* shoppingBagBtn.swift */; };
 		35046A152C3EDDC000F3FB9A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A142C3EDDC000F3FB9A /* Observable.swift */; };
-		35046A172C3EE13C00F3FB9A /* Error + Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A162C3EE13C00F3FB9A /* Error + Enum.swift */; };
+		35046A172C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A162C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift */; };
+		3549257E2C42A6880079974C /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549257D2C42A6880079974C /* OnboardingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,6 +91,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		350215542C3FC33300D2FC74 /* Placeholder + Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Placeholder + Enum.swift"; sourceTree = "<group>"; };
+		350215562C3FD1E400D2FC74 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		350469762C3EBFAF00F3FB9A /* ToBuyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToBuyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		350469792C3EBFAF00F3FB9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3504697B2C3EBFAF00F3FB9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +151,8 @@
 		35046A102C3EDA3C00F3FB9A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		35046A122C3EDA7B00F3FB9A /* shoppingBagBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shoppingBagBtn.swift; sourceTree = "<group>"; };
 		35046A142C3EDDC000F3FB9A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		35046A162C3EE13C00F3FB9A /* Error + Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error + Enum.swift"; sourceTree = "<group>"; };
+		35046A162C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextFieldValidation + Enum.swift"; sourceTree = "<group>"; };
+		3549257D2C42A6880079974C /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				350469AE2C3ECE0100F3FB9A /* TapBarController.swift */,
+				350215562C3FD1E400D2FC74 /* UserDefaultsManager.swift */,
 				350469D02C3ED20300F3FB9A /* NumberFormatterManager.swift */,
 				35046A142C3EDDC000F3FB9A /* Observable.swift */,
 				350469AC2C3ECD4100F3FB9A /* Profile */,
@@ -196,7 +203,7 @@
 				350469A82C3EC23F00F3FB9A /* Protocol */,
 				350469A72C3EC23600F3FB9A /* CustomView */,
 				350469A62C3EC21D00F3FB9A /* Network */,
-				350469A52C3EC1C000F3FB9A /* Resource */,
+				350469A52C3EC1C000F3FB9A /* Enum */,
 				350469A42C3EC1B900F3FB9A /* Base */,
 				350469A32C3EC1AB00F3FB9A /* DataBase */,
 				350469792C3EBFAF00F3FB9A /* AppDelegate.swift */,
@@ -230,14 +237,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		350469A52C3EC1C000F3FB9A /* Resource */ = {
+		350469A52C3EC1C000F3FB9A /* Enum */ = {
 			isa = PBXGroup;
 			children = (
 				350469F62C3ED59800F3FB9A /* Image + Enum.swift */,
 				350469F82C3ED5A500F3FB9A /* Design + Enum.swift */,
-				35046A162C3EE13C00F3FB9A /* Error + Enum.swift */,
+				35046A162C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift */,
+				350215542C3FC33300D2FC74 /* Placeholder + Enum.swift */,
 			);
-			path = Resource;
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		350469A62C3EC21D00F3FB9A /* Network */ = {
@@ -314,17 +322,34 @@
 		350469AC2C3ECD4100F3FB9A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				350469E82C3ED49C00F3FB9A /* ProfileMainVC.swift */,
+				3549257C2C42A5F60079974C /* View */,
+				3549257B2C42A5D30079974C /* ViewModel */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		3549257B2C42A5D30079974C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
 				350469EA2C3ED4A800F3FB9A /* ProfileMainViewModel.swift */,
+				3549257D2C42A6880079974C /* OnboardingViewModel.swift */,
+				350469BA2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift */,
+				350469BC2C3ECF2C00F3FB9A /* ProfileImageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3549257C2C42A5F60079974C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				350469E82C3ED49C00F3FB9A /* ProfileMainVC.swift */,
 				350469EC2C3ED4BF00F3FB9A /* ProfileMainTableViewCell.swift */,
 				350469B02C3ECE7700F3FB9A /* OnboardingVC.swift */,
 				350469B22C3ECE9700F3FB9A /* ProfileNicknameVC.swift */,
 				350469B42C3ECEB400F3FB9A /* ProfileImageVC.swift */,
 				350469B62C3ECEE300F3FB9A /* ProfileImageCollectionViewCell.swift */,
-				350469BA2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift */,
-				350469BC2C3ECF2C00F3FB9A /* ProfileImageViewModel.swift */,
 			);
-			path = Profile;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,9 +467,11 @@
 				350469E72C3ED3F800F3FB9A /* ShoppingBagMainCollectionViewCell.swift in Sources */,
 				350469CF2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift in Sources */,
 				350469BB2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift in Sources */,
+				350215552C3FC33300D2FC74 /* Placeholder + Enum.swift in Sources */,
 				350469D72C3ED2E700F3FB9A /* SearchMainTableViewCell.swift in Sources */,
 				35046A052C3ED96600F3FB9A /* AppTitleLabel.swift in Sources */,
 				350469CB2C3ED0DF00F3FB9A /* NaverShopping.swift in Sources */,
+				3549257E2C42A6880079974C /* OnboardingViewModel.swift in Sources */,
 				3504697C2C3EBFAF00F3FB9A /* SceneDelegate.swift in Sources */,
 				350469C92C3ED0A500F3FB9A /* APIKEY.swift in Sources */,
 				350469ED2C3ED4BF00F3FB9A /* ProfileMainTableViewCell.swift in Sources */,
@@ -452,6 +479,7 @@
 				350469EB2C3ED4A800F3FB9A /* ProfileMainViewModel.swift in Sources */,
 				350469D12C3ED20300F3FB9A /* NumberFormatterManager.swift in Sources */,
 				35046A0B2C3ED9BF00F3FB9A /* LineView.swift in Sources */,
+				350215572C3FD1E400D2FC74 /* UserDefaultsManager.swift in Sources */,
 				350469FB2C3ED5E000F3FB9A /* BaseVC.swift in Sources */,
 				350469FD2C3ED5FD00F3FB9A /* BaseCollectionViewCell.swift in Sources */,
 				35046A152C3EDDC000F3FB9A /* Observable.swift in Sources */,
@@ -464,7 +492,7 @@
 				350469E32C3ED39400F3FB9A /* ShoppingBagMainVC.swift in Sources */,
 				350469D92C3ED30200F3FB9A /* SearchResultVC.swift in Sources */,
 				350469EF2C3ED4E600F3FB9A /* VC + Extension.swift in Sources */,
-				35046A172C3EE13C00F3FB9A /* Error + Enum.swift in Sources */,
+				35046A172C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift in Sources */,
 				350469E92C3ED49C00F3FB9A /* ProfileMainVC.swift in Sources */,
 				35046A032C3ED93100F3FB9A /* ProfileImageView.swift in Sources */,
 				350469B52C3ECEB400F3FB9A /* ProfileImageVC.swift in Sources */,

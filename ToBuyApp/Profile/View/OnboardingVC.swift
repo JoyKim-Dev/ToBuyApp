@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 final class OnboardingVC: BaseViewController {
+    
+    let viewModel = OnboardingViewModel() 
+    
     private let appTitleLabel = AppTitleLabel()
     private let nameLabel = UILabel()
     private let appMainImage = UIImageView()
@@ -21,9 +24,9 @@ final class OnboardingVC: BaseViewController {
         
         override func configHierarchy() {
             view.addSubview(appTitleLabel)
-            view.addSubview(appMainImage)
             view.addSubview(appStartBtn)
             view.addSubview(nameLabel)
+            view.addSubview(appMainImage)
         }
         
     override func configLayout() {
@@ -50,7 +53,7 @@ final class OnboardingVC: BaseViewController {
             }
         }
         
-        func configUI() {
+       override func configView() {
             view.backgroundColor = UIColor.appTitle
             appMainImage.image = Image.mainImage
             appMainImage.contentMode = .scaleAspectFill
@@ -61,9 +64,9 @@ final class OnboardingVC: BaseViewController {
 extension OnboardingVC {
     
     @objc func startBtnTapped() {
-       
-        let vc = ProfileNicknameVC()
-        navigationController?.pushViewController(vc, animated: true)
+        print(#function)
+        viewModel.toNextVC(fromVC: self, nextVC: ProfileNicknameVC())
+
     }
 }
 

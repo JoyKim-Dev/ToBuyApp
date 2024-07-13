@@ -9,12 +9,12 @@ import UIKit
 
 class NicknameStatusLabel:UILabel {
     
-    override init(frame: CGRect) {
+    init(text: String) {
         super.init(frame: .zero)
         
         textColor = Color.orange
         font = Font.semiBold13
-        text = "닉네임에 @는 포함할 수 없어요"
+        self.text = text
     }
  
     required init?(coder: NSCoder) {
