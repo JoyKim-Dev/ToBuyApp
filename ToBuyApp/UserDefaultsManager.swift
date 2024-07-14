@@ -37,14 +37,14 @@ final class UserDefaultManager {
         }
     }
     
-//    static var searchKeyword: [String] {
-//        get {
-//            return UserDefaults.standard.array(forKey: UserDefaultKey.searchKeyWord.rawValue) as? [String] ?? []
-//        }
-//        set {
-//            UserDefaults.standard.set(newValue, forKey: UserDefaultKey.searchKeyWord.rawValue)
-//        }
-//    }
+    static var searchKeyword: [String] {
+        get {
+            return UserDefaults.standard.array(forKey: UserDefaultKey.searchKeyWord.rawValue) as? [String] ?? []
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKey.searchKeyWord.rawValue)
+        }
+    }
     
     static var joinedDate: Date {
         get{

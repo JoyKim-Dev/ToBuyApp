@@ -32,7 +32,7 @@
 		350469C52C3ED03400F3FB9A /* ShoppingBagRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469C42C3ED03400F3FB9A /* ShoppingBagRepository.swift */; };
 		350469C72C3ED07F00F3FB9A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 350469C62C3ED07F00F3FB9A /* .gitignore */; };
 		350469C92C3ED0A500F3FB9A /* APIKEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469C82C3ED0A500F3FB9A /* APIKEY.swift */; };
-		350469CB2C3ED0DF00F3FB9A /* NaverShopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CA2C3ED0DF00F3FB9A /* NaverShopping.swift */; };
+		350469CB2C3ED0DF00F3FB9A /* NaverShoppingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CA2C3ED0DF00F3FB9A /* NaverShoppingModel.swift */; };
 		350469CD2C3ED0EF00F3FB9A /* NaverShoppingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CC2C3ED0EF00F3FB9A /* NaverShoppingManager.swift */; };
 		350469CF2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CE2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift */; };
 		350469D12C3ED20300F3FB9A /* NumberFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469D02C3ED20300F3FB9A /* NumberFormatterManager.swift */; };
@@ -111,7 +111,7 @@
 		350469C42C3ED03400F3FB9A /* ShoppingBagRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingBagRepository.swift; sourceTree = "<group>"; };
 		350469C62C3ED07F00F3FB9A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		350469C82C3ED0A500F3FB9A /* APIKEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKEY.swift; sourceTree = "<group>"; };
-		350469CA2C3ED0DF00F3FB9A /* NaverShopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverShopping.swift; sourceTree = "<group>"; };
+		350469CA2C3ED0DF00F3FB9A /* NaverShoppingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverShoppingModel.swift; sourceTree = "<group>"; };
 		350469CC2C3ED0EF00F3FB9A /* NaverShoppingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverShoppingManager.swift; sourceTree = "<group>"; };
 		350469CE2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverShoppingRequest.swift; sourceTree = "<group>"; };
 		350469D02C3ED20300F3FB9A /* NumberFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterManager.swift; sourceTree = "<group>"; };
@@ -250,9 +250,9 @@
 			isa = PBXGroup;
 			children = (
 				350469C82C3ED0A500F3FB9A /* APIKEY.swift */,
-				350469CA2C3ED0DF00F3FB9A /* NaverShopping.swift */,
-				350469CC2C3ED0EF00F3FB9A /* NaverShoppingManager.swift */,
+				350469CA2C3ED0DF00F3FB9A /* NaverShoppingModel.swift */,
 				350469CE2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift */,
+				350469CC2C3ED0EF00F3FB9A /* NaverShoppingManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -298,9 +298,8 @@
 		350469AA2C3ECD0300F3FB9A /* ShoppingBag */ = {
 			isa = PBXGroup;
 			children = (
-				350469E22C3ED39400F3FB9A /* ShoppingBagMainVC.swift */,
-				350469E42C3ED3A200F3FB9A /* ShoppingBagMainViewModel.swift */,
-				350469E62C3ED3F800F3FB9A /* ShoppingBagMainCollectionViewCell.swift */,
+				35C0004D2C4407AE00B1B526 /* View */,
+				35C0004E2C4407B300B1B526 /* ViewModel */,
 			);
 			path = ShoppingBag;
 			sourceTree = "<group>";
@@ -308,14 +307,8 @@
 		350469AB2C3ECD3600F3FB9A /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				350469D22C3ED2C600F3FB9A /* SearchMainVC.swift */,
-				350469D42C3ED2D000F3FB9A /* SearchMainViewModel.swift */,
-				350469D62C3ED2E700F3FB9A /* SearchMainTableViewCell.swift */,
-				350469D82C3ED30200F3FB9A /* SearchResultVC.swift */,
-				350469DA2C3ED30C00F3FB9A /* SearchResultViewModel.swift */,
-				350469DC2C3ED32A00F3FB9A /* SearchResultCollectionViewCell.swift */,
-				350469DE2C3ED35400F3FB9A /* SearchItemDetailVC.swift */,
-				350469E02C3ED35F00F3FB9A /* SearchItemDetailViewModel.swift */,
+				35C0004B2C44077800B1B526 /* View */,
+				35C0004C2C44078000B1B526 /* ViewModel */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -350,6 +343,45 @@
 				350469B62C3ECEE300F3FB9A /* ProfileImageCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		35C0004B2C44077800B1B526 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				350469D22C3ED2C600F3FB9A /* SearchMainVC.swift */,
+				350469D62C3ED2E700F3FB9A /* SearchMainTableViewCell.swift */,
+				350469D82C3ED30200F3FB9A /* SearchResultVC.swift */,
+				350469DC2C3ED32A00F3FB9A /* SearchResultCollectionViewCell.swift */,
+				350469DE2C3ED35400F3FB9A /* SearchItemDetailVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		35C0004C2C44078000B1B526 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				350469D42C3ED2D000F3FB9A /* SearchMainViewModel.swift */,
+				350469DA2C3ED30C00F3FB9A /* SearchResultViewModel.swift */,
+				350469E02C3ED35F00F3FB9A /* SearchItemDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		35C0004D2C4407AE00B1B526 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				350469E22C3ED39400F3FB9A /* ShoppingBagMainVC.swift */,
+				350469E62C3ED3F800F3FB9A /* ShoppingBagMainCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		35C0004E2C4407B300B1B526 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				350469E42C3ED3A200F3FB9A /* ShoppingBagMainViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,7 +504,7 @@
 				350215552C3FC33300D2FC74 /* Placeholder + Enum.swift in Sources */,
 				350469D72C3ED2E700F3FB9A /* SearchMainTableViewCell.swift in Sources */,
 				35046A052C3ED96600F3FB9A /* AppTitleLabel.swift in Sources */,
-				350469CB2C3ED0DF00F3FB9A /* NaverShopping.swift in Sources */,
+				350469CB2C3ED0DF00F3FB9A /* NaverShoppingModel.swift in Sources */,
 				3504697C2C3EBFAF00F3FB9A /* SceneDelegate.swift in Sources */,
 				350469C92C3ED0A500F3FB9A /* APIKEY.swift in Sources */,
 				350469ED2C3ED4BF00F3FB9A /* ProfileMainTableViewCell.swift in Sources */,
