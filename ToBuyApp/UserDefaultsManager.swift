@@ -28,7 +28,7 @@ final class UserDefaultManager {
         }
     }
     
-    static var profileImage: Int? {
+    static var profileImage: Int {
         get{
             return UserDefaults.standard.integer(forKey: UserDefaultKey.profileImage.rawValue)
         }

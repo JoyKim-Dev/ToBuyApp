@@ -11,8 +11,7 @@ import SnapKit
 import Toast
 
 
-
-final class ProfileNicknameVC: BaseViewController {
+final class ProfileNicknameVC: BaseViewController, TabbarCoordinator {
     
     let viewModel = ProfileNicknameViewModel()
 
@@ -22,7 +21,7 @@ final class ProfileNicknameVC: BaseViewController {
     private lazy var nicknameStatusLabel = NicknameStatusLabel(text: textIsValid)
     private let submitBtn = OnboardingButton(btnTitle: "완료")
     
-    private lazy var selectedProfileImageNum: Int = 0
+    var selectedProfileImageNum = UserDefaultManager.profileImage
     private var textIsValid = TextFieldValidation.valid.value
    
     override func viewDidLoad() {
@@ -32,9 +31,9 @@ final class ProfileNicknameVC: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // viewModel에서 선택한 이미지 숫자 받아오기
-        profileImageView.profileImage.image = UIImage(named: "catProfile_\(selectedProfileImageNum)")
-        //  textFieldDidChange(nicknameTextField)
+    
+        profileImageView.changeImage(profileNum: selectedProfileImageNum)
+
     }
     
     func bindData() {
@@ -42,21 +41,22 @@ final class ProfileNicknameVC: BaseViewController {
         viewModel.outputNavigationTitle.bind {  title in
             self.setNavTitle(title)
         }
+        viewModel.outputImage.bind { imageNum in
+            self.selectedProfileImageNum = imageNum
+            self.profileImageView.changeImage(profileNum: imageNum)
+                }
         viewModel.outputNickTextFieldText.bind { nickname in
             self.nicknameTextField.text = nickname
         }
-        viewModel.outputImage.bind { imageNum in
-            self.selectedProfileImageNum = imageNum
-            print(imageNum)
-                }
         viewModel.outputNicknameStatus.bind {  status in
+            print(status)
                     self.nicknameStatusLabel.text = status
                     self.textIsValid = status
                 }
         viewModel.outputSubmitBtn.bind { status in
-                    self.submitBtn.isEnabled = status
+            self.submitBtn.isEnabled = status
+            self.submitBtn.toggleOnboardingBtn()
                 }
-
     }
     
     override func configHierarchy() {
@@ -101,7 +101,6 @@ final class ProfileNicknameVC: BaseViewController {
         super.configView()
         
         hideKeyboardWhenTappedAround()
-        setNavTitle(viewModel.outputNavigationTitle.value)
         
         // 커스텀뷰 - 네비바 왼쪽버튼
         let backbtn = NavBackBtn(image: Icon.chevronLeft, style: .plain, target: self, action: #selector(backBtnTapped))
@@ -118,24 +117,44 @@ final class ProfileNicknameVC: BaseViewController {
     @objc func imageTapped() {
         let vc = ProfileImageVC()
         vc.imageDataFromPreviousPage = selectedProfileImageNum
+        vc.imageForDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 
     @objc func textFieldDidChange(_ sender: UITextField) {
-        viewModel.inputNickname.value = sender.text
-        viewModel.nicknameValidation()
+        viewModel.inputtextFieldDidChange.value = sender.text
     }
-    // 완료 시 동작 trigger : 1. 버튼 addtarget 2. 텍스트필드 return (버튼 함수 실행 - 재활용) 3. UserDefault 저장(닉네임. 가입일.이미지)
+    
     @objc func submitBtnTapped() {
-        viewModel.submitValidation(currentVC: self)
+        print(#function)
+        //viewModel.submitValidation(currentVC: self)
+        if nicknameStatusLabel.text != textIsValid {
+            return
+        } else if UserDefaultManager.nickname.isEmpty {
+            // 멤버가 아니라면(UD값이 없다면) 현재 입력된 텍스트 UD에 저장.
+            UserDefaultManager.nickname = nicknameTextField.text ?? UserDefaultManager.nickname
+            UserDefaultManager.joinedDate = Date()
+            UserDefaultManager.profileImage = selectedProfileImageNum
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let sceneDelegate = windowScene?.delegate as? SceneDelegate
+            let rootViewController = TabBarController()
+            sceneDelegate?.window?.rootViewController = rootViewController
+            sceneDelegate?.window?.makeKeyAndVisible()
+        } else {
+            UserDefaultManager.nickname = nicknameTextField.text ?? UserDefaultManager.nickname
+            UserDefaultManager.profileImage = selectedProfileImageNum
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc func backBtnTapped() {
-        navigationController?.popViewController(animated: true)
         viewModel.inputBackBtnTapped.value = ()
-        viewModel.popViewController(currentVC: self)
-        
+        navigationController?.popViewController(animated: true)
         }
+    
+    @objc func popcurrentPage() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 extension ProfileNicknameVC: UITextFieldDelegate {
 
@@ -145,11 +164,17 @@ extension ProfileNicknameVC: UITextFieldDelegate {
             return false
         } else {
             submitBtnTapped()
+            print(UserDefaultManager.nickname)
             return true
         }
     }
 }
 
+extension ProfileNicknameVC: ImageDelegate {
+    func imageDataFromImageSettingpage(int: Int) {
+        selectedProfileImageNum = int
+    }
+}
 
 // 화면 전환 로직을 뷰모델에서 하는게 맞? Delegate등을 사용해서 
 // 화면 전환을 담당하는 객체를 별도로? 개념만 알아두기

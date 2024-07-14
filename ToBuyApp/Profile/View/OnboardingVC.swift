@@ -11,8 +11,6 @@ import SnapKit
 
 final class OnboardingVC: BaseViewController {
     
-    let viewModel = OnboardingViewModel() 
-    
     private let appTitleLabel = AppTitleLabel()
     private let nameLabel = UILabel()
     private let appMainImage = UIImageView()
@@ -59,14 +57,13 @@ final class OnboardingVC: BaseViewController {
             appMainImage.contentMode = .scaleAspectFill
             appStartBtn.addTarget(self, action: #selector(startBtnTapped), for: .touchUpInside)
     }
-}
-
-extension OnboardingVC {
     
     @objc func startBtnTapped() {
         print(#function)
-        viewModel.toNextVC(fromVC: self, nextVC: ProfileNicknameVC())
-
-    }
+        let vc = ProfileNicknameVC()
+        navigationController?.pushViewController(vc, animated: true)
 }
+}
+
+   
 

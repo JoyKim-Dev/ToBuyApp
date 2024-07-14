@@ -29,8 +29,6 @@
 		350469BB2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469BA2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift */; };
 		350469BD2C3ECF2C00F3FB9A /* ProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469BC2C3ECF2C00F3FB9A /* ProfileImageViewModel.swift */; };
 		350469BF2C3ECF8200F3FB9A /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469BE2C3ECF8200F3FB9A /* RealmModel.swift */; };
-		350469C12C3ECFB000F3FB9A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469C02C3ECFB000F3FB9A /* UserRepository.swift */; };
-		350469C32C3ED02800F3FB9A /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469C22C3ED02800F3FB9A /* SearchRepository.swift */; };
 		350469C52C3ED03400F3FB9A /* ShoppingBagRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469C42C3ED03400F3FB9A /* ShoppingBagRepository.swift */; };
 		350469C72C3ED07F00F3FB9A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 350469C62C3ED07F00F3FB9A /* .gitignore */; };
 		350469C92C3ED0A500F3FB9A /* APIKEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469C82C3ED0A500F3FB9A /* APIKEY.swift */; };
@@ -73,7 +71,9 @@
 		35046A132C3EDA7B00F3FB9A /* shoppingBagBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A122C3EDA7B00F3FB9A /* shoppingBagBtn.swift */; };
 		35046A152C3EDDC000F3FB9A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A142C3EDDC000F3FB9A /* Observable.swift */; };
 		35046A172C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A162C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift */; };
-		3549257E2C42A6880079974C /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549257D2C42A6880079974C /* OnboardingViewModel.swift */; };
+		355E318A2C43A0CD00EE503A /* ProfileImageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */; };
+		355E318C2C43A5BE00EE503A /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */; };
+		355E318E2C43B8C000EE503A /* ProfileNicknameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,8 +108,6 @@
 		350469BA2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewModel.swift; sourceTree = "<group>"; };
 		350469BC2C3ECF2C00F3FB9A /* ProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewModel.swift; sourceTree = "<group>"; };
 		350469BE2C3ECF8200F3FB9A /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
-		350469C02C3ECFB000F3FB9A /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		350469C22C3ED02800F3FB9A /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		350469C42C3ED03400F3FB9A /* ShoppingBagRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingBagRepository.swift; sourceTree = "<group>"; };
 		350469C62C3ED07F00F3FB9A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		350469C82C3ED0A500F3FB9A /* APIKEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKEY.swift; sourceTree = "<group>"; };
@@ -152,7 +150,9 @@
 		35046A122C3EDA7B00F3FB9A /* shoppingBagBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shoppingBagBtn.swift; sourceTree = "<group>"; };
 		35046A142C3EDDC000F3FB9A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		35046A162C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextFieldValidation + Enum.swift"; sourceTree = "<group>"; };
-		3549257D2C42A6880079974C /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCoordinator.swift; sourceTree = "<group>"; };
+		355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,8 +220,6 @@
 			isa = PBXGroup;
 			children = (
 				350469BE2C3ECF8200F3FB9A /* RealmModel.swift */,
-				350469C02C3ECFB000F3FB9A /* UserRepository.swift */,
-				350469C22C3ED02800F3FB9A /* SearchRepository.swift */,
 				350469C42C3ED03400F3FB9A /* ShoppingBagRepository.swift */,
 			);
 			path = DataBase;
@@ -279,6 +277,9 @@
 			isa = PBXGroup;
 			children = (
 				350469F42C3ED54300F3FB9A /* ReuseIdentifierProtocol.swift */,
+				355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */,
+				355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */,
+				355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -332,7 +333,6 @@
 			isa = PBXGroup;
 			children = (
 				350469EA2C3ED4A800F3FB9A /* ProfileMainViewModel.swift */,
-				3549257D2C42A6880079974C /* OnboardingViewModel.swift */,
 				350469BA2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift */,
 				350469BC2C3ECF2C00F3FB9A /* ProfileImageViewModel.swift */,
 			);
@@ -440,10 +440,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				355E318A2C43A0CD00EE503A /* ProfileImageCoordinator.swift in Sources */,
 				350469CD2C3ED0EF00F3FB9A /* NaverShoppingManager.swift in Sources */,
 				35046A092C3ED9B400F3FB9A /* NicknameTextField.swift in Sources */,
-				350469C12C3ECFB000F3FB9A /* UserRepository.swift in Sources */,
 				350469F72C3ED59800F3FB9A /* Image + Enum.swift in Sources */,
+				355E318C2C43A5BE00EE503A /* TabBarCoordinator.swift in Sources */,
 				350469DF2C3ED35400F3FB9A /* SearchItemDetailVC.swift in Sources */,
 				3504697E2C3EBFAF00F3FB9A /* ViewController.swift in Sources */,
 				35046A132C3EDA7B00F3FB9A /* shoppingBagBtn.swift in Sources */,
@@ -466,12 +467,12 @@
 				350469B12C3ECE7700F3FB9A /* OnboardingVC.swift in Sources */,
 				350469E72C3ED3F800F3FB9A /* ShoppingBagMainCollectionViewCell.swift in Sources */,
 				350469CF2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift in Sources */,
+				355E318E2C43B8C000EE503A /* ProfileNicknameCoordinator.swift in Sources */,
 				350469BB2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift in Sources */,
 				350215552C3FC33300D2FC74 /* Placeholder + Enum.swift in Sources */,
 				350469D72C3ED2E700F3FB9A /* SearchMainTableViewCell.swift in Sources */,
 				35046A052C3ED96600F3FB9A /* AppTitleLabel.swift in Sources */,
 				350469CB2C3ED0DF00F3FB9A /* NaverShopping.swift in Sources */,
-				3549257E2C42A6880079974C /* OnboardingViewModel.swift in Sources */,
 				3504697C2C3EBFAF00F3FB9A /* SceneDelegate.swift in Sources */,
 				350469C92C3ED0A500F3FB9A /* APIKEY.swift in Sources */,
 				350469ED2C3ED4BF00F3FB9A /* ProfileMainTableViewCell.swift in Sources */,
@@ -488,7 +489,6 @@
 				350469F52C3ED54300F3FB9A /* ReuseIdentifierProtocol.swift in Sources */,
 				350469F32C3ED4F900F3FB9A /* Button + Extension.swift in Sources */,
 				350469F92C3ED5A500F3FB9A /* Design + Enum.swift in Sources */,
-				350469C32C3ED02800F3FB9A /* SearchRepository.swift in Sources */,
 				350469E32C3ED39400F3FB9A /* ShoppingBagMainVC.swift in Sources */,
 				350469D92C3ED30200F3FB9A /* SearchResultVC.swift in Sources */,
 				350469EF2C3ED4E600F3FB9A /* VC + Extension.swift in Sources */,

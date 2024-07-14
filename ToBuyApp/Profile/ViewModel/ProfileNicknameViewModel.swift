@@ -5,25 +5,23 @@
 //  Created by Joy Kim on 7/10/24.
 //
 
-import UIKit
+import Foundation
 
 final class ProfileNicknameViewModel {
 
-    var inputBackBtnTapped: Observable <Void?> = Observable(nil)
-    var inputNickname: Observable<String?> = Observable("")
+    var inputBackBtnTapped: Observable<Void?> = Observable(nil)
+    var inputtextFieldDidChange: Observable<String?> = Observable("")
+    var inputImageTapped: Observable<Void?> = Observable(nil)
     
     var outputNavigationTitle: Observable<String> = Observable("")
     var outputNickTextFieldText: Observable<String> = Observable("")
     var outputImage: Observable<Int> = Observable(0)
     var outputSubmitBtn: Observable<Bool> = Observable(false)
     var outputNicknameStatus: Observable<String> = Observable("")
-   // var outputTextFieldShouldReturn: Observable<Bool> = Observable(true)
     
     init() {
         transform()
-        
     }
-    
     private func transform() {
         
         outputNavigationTitle.bind { _ in
@@ -35,23 +33,12 @@ final class ProfileNicknameViewModel {
         outputImage.bind { _ in
             self.selectImage()
         }
-        outputNicknameStatus.bind { _ in
+        inputtextFieldDidChange.bind { _ in
             self.nicknameValidation()
         }
-        outputSubmitBtn.bind { _ in
-            self.outputSubmitBtnisOn()
+        inputBackBtnTapped.bind {[weak self] _ in
+            self?.resetSelectedImage()
         }
-        inputBackBtnTapped.bind { _ in
-            self.resetSelectedImage()
-        }
-      //  outputTextFieldShouldReturn.bind { _ in
-//            if self.outputNicknameStatus.value == TextFieldValidation.valid.value {
-//                self.outputTextFieldShouldReturn.value = true
-//            } else {
-//                self.outputTextFieldShouldReturn.value = false
-//            }
-//        }
-   
     }
     
     private func setNavigationTitle() {
@@ -70,13 +57,12 @@ final class ProfileNicknameViewModel {
         }
     }
     private func selectImage() {
-        if UserDefaultManager.profileImage == nil {
+        
+        if UserDefaultManager.nickname.isEmpty {
             outputImage.value = Int.random(in: 0...11)
             UserDefaultManager.profileImage = outputImage.value
-            print(outputImage.value)
         } else {
-            guard let image = UserDefaultManager.profileImage else {return}
-            outputImage.value = image
+            outputImage.value = UserDefaultManager.profileImage
         }
     }
     private func resetSelectedImage() {
@@ -85,29 +71,34 @@ final class ProfileNicknameViewModel {
             print("삭제됨")
         }
     }
-     func nicknameValidation()  {
-        guard let nickname = inputNickname.value else {return}
+    private func nicknameValidation()  {
+        guard let nickname = inputtextFieldDidChange.value else {return}
         guard !nickname.isEmpty else {
             outputNicknameStatus.value = TextFieldValidation.emptyString.value
             return
         }
         guard nickname.count > 1 && nickname.count < 10 else {
             outputNicknameStatus.value = TextFieldValidation.tooShortOrTooLong.value
+            outputSubmitBtn.value = false
             return
         }
         guard nickname.containsNumber() == false else {
             outputNicknameStatus.value = TextFieldValidation.isInt.value
+            outputSubmitBtn.value = false
             return
         }
         guard nickname.containsAnyOfSpecificSymbols(["@","#","$","%"]) == false else {
             outputNicknameStatus.value = TextFieldValidation.containsSymbol.value
+            outputSubmitBtn.value = false
             return
         }
         guard !nickname.contains(" ") else {
             outputNicknameStatus.value = TextFieldValidation.containsBlank.value
+            outputSubmitBtn.value = false
             return
         }
         outputNicknameStatus.value = TextFieldValidation.valid.value
+        outputSubmitBtn.value = true
     }
     private func outputSubmitBtnisOn() {
         if outputNicknameStatus.value != TextFieldValidation.valid.value {
@@ -116,29 +107,4 @@ final class ProfileNicknameViewModel {
             outputSubmitBtn.value = true
         }
     }
-    
-    func popViewController(currentVC: UIViewController) {
-        currentVC.navigationController?.popViewController(animated: true)
-    }
-    func submitValidation(currentVC:UIViewController) {
-    if outputNicknameStatus.value != TextFieldValidation.valid.value {
-        return
-    } else if UserDefaultManager.nickname.isEmpty {
-        UserDefaultManager.nickname = inputNickname.value ?? ""
-        UserDefaultManager.joinedDate = Date()
-        UserDefaultManager.profileImage = outputImage.value
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let rootViewController = TabBarController()
-        sceneDelegate?.window?.rootViewController = rootViewController
-        sceneDelegate?.window?.makeKeyAndVisible()
-    } else {
-        UserDefaultManager.nickname = inputNickname.value ?? ""
-        UserDefaultManager.profileImage = outputImage.value
-        currentVC.navigationController?.popViewController(animated: true)
-    }
-}
-
-    
-    
 }

@@ -6,3 +6,26 @@
 //
 
 import Foundation
+
+final class ProfileImageViewModel {
+
+    var outputNavigationTitle: Observable<String> = Observable("")
+    
+    init() {
+        transform()
+    }
+    private func transform() {
+        outputNavigationTitle.bind { _ in
+            self.setNavigationTitle()
+        }
+
+    }
+    
+    private func setNavigationTitle() {
+        if !UserDefaultManager.nickname.isEmpty {
+            outputNavigationTitle.value = "EDIT PROFILE"
+        } else {
+            outputNavigationTitle.value = "PROFILE SETTING"
+        }
+    }
+    }
