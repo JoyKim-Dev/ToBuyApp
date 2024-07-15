@@ -74,6 +74,8 @@
 		355E318A2C43A0CD00EE503A /* ProfileImageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */; };
 		355E318C2C43A5BE00EE503A /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */; };
 		355E318E2C43B8C000EE503A /* ProfileNicknameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */; };
+		35AAD6252C45469E0008796F /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AAD6242C45469E0008796F /* DateFormatterManager.swift */; };
+		35AAD6272C4553350008796F /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AAD6262C4553350008796F /* AlertManager.swift */; };
 		35C000502C440F3000B1B526 /* SearchFilter + Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C0004F2C440F3000B1B526 /* SearchFilter + Enum.swift */; };
 		35C000522C440F8C00B1B526 /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C000512C440F8C00B1B526 /* CategoryRepository.swift */; };
 		35C000552C441A9000B1B526 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 35C000542C441A9000B1B526 /* Kingfisher */; };
@@ -157,6 +159,8 @@
 		355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCoordinator.swift; sourceTree = "<group>"; };
 		355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameCoordinator.swift; sourceTree = "<group>"; };
+		35AAD6242C45469E0008796F /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		35AAD6262C4553350008796F /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		35C0004F2C440F3000B1B526 /* SearchFilter + Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchFilter + Enum.swift"; sourceTree = "<group>"; };
 		35C000512C440F8C00B1B526 /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		35C000562C441FFC00B1B526 /* ShoppingBagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingBagTableViewCell.swift; sourceTree = "<group>"; };
@@ -203,6 +207,8 @@
 				350469AE2C3ECE0100F3FB9A /* TapBarController.swift */,
 				350215562C3FD1E400D2FC74 /* UserDefaultsManager.swift */,
 				350469D02C3ED20300F3FB9A /* NumberFormatterManager.swift */,
+				35AAD6242C45469E0008796F /* DateFormatterManager.swift */,
+				35AAD6262C4553350008796F /* AlertManager.swift */,
 				35046A142C3EDDC000F3FB9A /* Observable.swift */,
 				350469AC2C3ECD4100F3FB9A /* Profile */,
 				350469AB2C3ECD3600F3FB9A /* Search */,
@@ -502,6 +508,7 @@
 				350469E52C3ED3A200F3FB9A /* ShoppingBagMainViewModel.swift in Sources */,
 				350469FF2C3ED60600F3FB9A /* BaseTableViewCell.swift in Sources */,
 				350469B32C3ECE9700F3FB9A /* ProfileNicknameVC.swift in Sources */,
+				35AAD6252C45469E0008796F /* DateFormatterManager.swift in Sources */,
 				350469B72C3ECEE300F3FB9A /* ProfileImageCollectionViewCell.swift in Sources */,
 				35046A112C3EDA3C00F3FB9A /* SearchBar.swift in Sources */,
 				35046A012C3ED63B00F3FB9A /* FileManager + Extension.swift in Sources */,
@@ -540,6 +547,7 @@
 				350469E32C3ED39400F3FB9A /* ShoppingBagMainVC.swift in Sources */,
 				350469D92C3ED30200F3FB9A /* SearchResultVC.swift in Sources */,
 				350469EF2C3ED4E600F3FB9A /* VC + Extension.swift in Sources */,
+				35AAD6272C4553350008796F /* AlertManager.swift in Sources */,
 				35046A172C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift in Sources */,
 				350469E92C3ED49C00F3FB9A /* ProfileMainVC.swift in Sources */,
 				35046A032C3ED93100F3FB9A /* ProfileImageView.swift in Sources */,

@@ -5,7 +5,7 @@
 //  Created by Joy Kim on 7/11/24.
 //
 
-import UIKit
+import Foundation
 
 enum UserDefaultKey: String, CaseIterable {
     case nickname
@@ -55,16 +55,17 @@ final class UserDefaultManager {
         }
     }
     
-}
- extension UserDefaultManager {
+    func clearUserDefaults() {
+        let keys = UserDefaultKey.allCases.map { $0.rawValue }
 
-   func clearUserDefaults() {
-       let keys = UserDefaultKey.allCases.map { $0.rawValue }
-
-        for i in keys {
-            UserDefaults.standard.removeObject(forKey: i)
+         for i in keys {
+             UserDefaults.standard.removeObject(forKey: i)
+         }
+            UserDefaults.standard.synchronize()
         }
-           UserDefaults.standard.synchronize()
-       }
 }
+
+
+  
+
 

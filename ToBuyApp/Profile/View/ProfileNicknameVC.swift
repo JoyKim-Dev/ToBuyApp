@@ -142,6 +142,7 @@ final class ProfileNicknameVC: BaseViewController, TabbarCoordinator {
             sceneDelegate?.window?.makeKeyAndVisible()
         } else {
             UserDefaultManager.nickname = nicknameTextField.text ?? UserDefaultManager.nickname
+            print(UserDefaultManager.nickname)
             UserDefaultManager.profileImage = selectedProfileImageNum
             navigationController?.popViewController(animated: true)
         }
