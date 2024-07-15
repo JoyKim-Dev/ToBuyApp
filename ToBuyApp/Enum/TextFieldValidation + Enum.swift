@@ -28,7 +28,7 @@ enum TextFieldValidation: Error {
         case .containsBlank:
             "문자 사이 공백을 포함할 수 없어요"
         case.valid:
-            "사용할 수 있는 닉네입이에요"
+            "사용할 수 있는 닉네임이에요"
         }
     }
 }

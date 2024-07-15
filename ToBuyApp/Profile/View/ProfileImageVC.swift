@@ -14,14 +14,9 @@ final class ProfileImageVC: BaseViewController, ProfileImageCoordinator {
     
     let viewModel = ProfileImageViewModel()
     
-    private lazy var selectedImageView = ProfileImageView(profileImageNum: imageDataFromPreviousPage , cameraBtnMode: .isShowing, isSelected: true)
+    private lazy var selectedImageView = ProfileImageView(profileImageNum: viewModel.imageDataFromPreviousPage , cameraBtnMode: .isShowing, isSelected: true)
     private lazy var profileCollectionView = UICollectionView(frame: .zero, collectionViewLayout: ProfileImageVC.collectionViewLayout())
-    
-     var imageDataFromPreviousPage:Int = 0
-     var selectedIndexPath: IndexPath?
-    
-    weak var imageForDelegate: ImageDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,12 +89,11 @@ extension ProfileImageVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedImageView.changeImage(profileNum: indexPath.item)
-        imageForDelegate?.imageDataFromImageSettingpage(int: indexPath.item)
+        viewModel.imageForDelegate?.imageDataFromImageSettingpage(int: indexPath.item)
         
         for i in 0..<collectionView.numberOfItems(inSection: 0) {
             if let cell = collectionView.cellForItem(at: IndexPath(item: i, section: 0)) as? ProfileImageCollectionViewCell {
                 ProfileImageStyle.unSelected.configProfileImageUI(to: cell.imageView.profileImage)
-
             }
         }
         if let cell = collectionView.cellForItem(at: indexPath) as? ProfileImageCollectionViewCell {

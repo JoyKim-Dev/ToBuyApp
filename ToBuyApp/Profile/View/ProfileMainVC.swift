@@ -22,11 +22,14 @@ final class ProfileMainVC:BaseViewController {
     }()
     private let joinedDateLabel = UILabel()
 
-    private let toEditProfileBtn = UIButton()
+    private let toEditProfileBtn = {
+        let view = UIButton()
+        view.tintColor = .appTitle
+        return view
+    }()
     private var profileImageNumData = 0
     
     private let tableView = UITableView()
-    private let settingMenu = ["나의 장바구니 목록", "자주 묻는 질문", "1:1문의", "알림 설정", "탈퇴하기"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +81,7 @@ final class ProfileMainVC:BaseViewController {
         
         tableView.snp.makeConstraints { make in
             make.top.equalTo(profileView.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.horizontalEdges.equalTo(view)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -86,9 +89,11 @@ final class ProfileMainVC:BaseViewController {
     override func configView() {
         
         navigationController?.navigationBar.shadowImage = nil
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = UIColor.appTitle
         
         toEditProfileBtn.setImage(Icon.chevronRight, for: .normal)
-        toEditProfileBtn.addTarget(self, action: #selector(rightBarBtnTapped), for: .touchUpInside)
+        toEditProfileBtn.addTarget(self, action: #selector(toEditProfileBtnTapped), for: .touchUpInside)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -105,9 +110,7 @@ final class ProfileMainVC:BaseViewController {
             self.joinedDateLabel.text = value
         }
         viewModel.outputProfileNickname.bind { value in
-            print("111")
             self.profileNameLabel.text = value
-        print("222")
         }
         viewModel.outputProfileImage.bind { value in
             self.profileImageNumData = value
@@ -120,42 +123,49 @@ final class ProfileMainVC:BaseViewController {
             self.profileImageNumData = value
             self.profileImageView.changeImage(profileNum: self.profileImageNumData)
         }
+        viewModel.outputToEditProfileBtnTapped.bindLater { _ in
+            self.viewControllerPushTransition(toVC: ProfileNicknameVC())
+        }
     }
 
-}
-
-extension ProfileMainVC {
-    
-    @objc func rightBarBtnTapped() {
-        let vc = ProfileNicknameVC()
-        navigationController?.pushViewController(vc, animated: true)
+    @objc func toEditProfileBtnTapped() {
+        viewModel.inputToEditProfileBtnTapped.value = ()
     }
 }
 
 extension ProfileMainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel.profileMenu.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileMainTableViewCell.identifier, for: indexPath) as! ProfileMainTableViewCell
-        let data = settingMenu[indexPath.row]
+        let data = viewModel.profileMenu[indexPath.row]
         cell.configUI(data: data, indexPath: indexPath.row)
+        
+        switch indexPath.row {
+        case 1,2,3:
+            cell.selectionStyle = .none
+        default:
+            cell.selectionStyle = .default
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 4 {
-            AlertManager.showAlert(viewController: self, title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", ok: "확인") {
+        switch indexPath.row {
+        case 0:
+            sceneDelegateRootViewTransition(toVC: TabBarController())
+        case 1,2,3:
+            tableView.deselectRow(at: indexPath, animated: true)
+        case 4:
+            AlertManager.showAlert(viewController: self, title: AlertMessage.deleteAccountTitle.text, message: AlertMessage.deleteAccountMessage.text, ok: AlertMessage.answerOK.text) {
                 UserDefaultManager.shared.clearUserDefaults()
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                let sceneDelegate = windowScene?.delegate as? SceneDelegate
-                let rootViewController = UINavigationController(rootViewController: OnboardingVC())
-                sceneDelegate?.window?.rootViewController = rootViewController
-                sceneDelegate?.window?.makeKeyAndVisible()
+                let navOnboardingVC = UINavigationController(rootViewController: OnboardingVC())
+                self.sceneDelegateRootViewTransition(toVC: navOnboardingVC)
+                
             }
-
-        } else {
+        default:
             return
         }
     }

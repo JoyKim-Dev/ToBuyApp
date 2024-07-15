@@ -9,6 +9,10 @@ import Foundation
 
 final class ProfileImageViewModel {
     
+    var imageDataFromPreviousPage:Int = 0
+    var selectedIndexPath: IndexPath?
+    weak var imageForDelegate: ImageDelegate?
+    
     var outputNavigationTitle: Observable<String> = Observable("")
     
     init() {

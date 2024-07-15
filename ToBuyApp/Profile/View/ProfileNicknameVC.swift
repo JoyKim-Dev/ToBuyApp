@@ -8,10 +8,8 @@
 import UIKit
 import RealmSwift
 import SnapKit
-import Toast
 
-
-final class ProfileNicknameVC: BaseViewController, TabbarCoordinator {
+final class ProfileNicknameVC: BaseViewController {
     
     let viewModel = ProfileNicknameViewModel()
 
@@ -31,7 +29,7 @@ final class ProfileNicknameVC: BaseViewController, TabbarCoordinator {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+ 
         profileImageView.changeImage(profileNum: selectedProfileImageNum)
 
     }
@@ -55,8 +53,15 @@ final class ProfileNicknameVC: BaseViewController, TabbarCoordinator {
                 }
         viewModel.outputSubmitBtn.bind { status in
             self.submitBtn.isEnabled = status
+            print(status)
             self.submitBtn.toggleOnboardingBtn()
                 }
+//        viewModel.outputImageTapped.bindLater { _ in
+//            let vc = ProfileImageVC()
+//            vc.viewModel.imageDataFromPreviousPage = self.selectedProfileImageNum
+//            vc.viewModel.imageForDelegate = self
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
     }
     
     override func configHierarchy() {
@@ -115,10 +120,11 @@ final class ProfileNicknameVC: BaseViewController, TabbarCoordinator {
     }
 
     @objc func imageTapped() {
+        viewModel.inputBackBtnTapped.value = ()
         let vc = ProfileImageVC()
-        vc.imageDataFromPreviousPage = selectedProfileImageNum
-        vc.imageForDelegate = self
-        navigationController?.pushViewController(vc, animated: true)
+        vc.viewModel.imageDataFromPreviousPage = self.selectedProfileImageNum
+        vc.viewModel.imageForDelegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     @objc func textFieldDidChange(_ sender: UITextField) {
@@ -127,22 +133,15 @@ final class ProfileNicknameVC: BaseViewController, TabbarCoordinator {
     
     @objc func submitBtnTapped() {
         print(#function)
-        //viewModel.submitValidation(currentVC: self)
         if nicknameStatusLabel.text != textIsValid {
             return
         } else if UserDefaultManager.nickname.isEmpty {
-            // 멤버가 아니라면(UD값이 없다면) 현재 입력된 텍스트 UD에 저장.
             UserDefaultManager.nickname = nicknameTextField.text ?? UserDefaultManager.nickname
             UserDefaultManager.joinedDate = Date()
             UserDefaultManager.profileImage = selectedProfileImageNum
-            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let sceneDelegate = windowScene?.delegate as? SceneDelegate
-            let rootViewController = TabBarController()
-            sceneDelegate?.window?.rootViewController = rootViewController
-            sceneDelegate?.window?.makeKeyAndVisible()
+            sceneDelegateRootViewTransition(toVC: TabBarController())
         } else {
             UserDefaultManager.nickname = nicknameTextField.text ?? UserDefaultManager.nickname
-            print(UserDefaultManager.nickname)
             UserDefaultManager.profileImage = selectedProfileImageNum
             navigationController?.popViewController(animated: true)
         }

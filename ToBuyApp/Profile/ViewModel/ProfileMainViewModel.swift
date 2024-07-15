@@ -9,8 +9,12 @@ import Foundation
 
 final class ProfileMainViewModel {
     
-    var inputViewWillAppear: Observable<Void?> = Observable(nil)
+    var profileMenu = ["나의 장바구니 목록", "자주 묻는 질문", "1:1문의", "알림 설정", "탈퇴하기"]
     
+    var inputViewWillAppear: Observable<Void?> = Observable(nil)
+    var inputToEditProfileBtnTapped: Observable<Void?> = Observable(nil)
+    
+    var outputToEditProfileBtnTapped: Observable<Void?> = Observable(nil)
     var outputNavigationTitle: Observable<String> = Observable("")
     var outputJoinedDate: Observable<String> = Observable("")
     
@@ -18,6 +22,7 @@ final class ProfileMainViewModel {
     var outputProfileImage: Observable<Int> = Observable(0)
     var outputEditedNickname: Observable<String> = Observable("")
     var outputEditedImage: Observable<Int> = Observable(0)
+    
     
     init() {
         transform()
@@ -28,6 +33,10 @@ final class ProfileMainViewModel {
         inputViewWillAppear.bind { _ in
             self.outputEditedNickname.value = UserDefaultManager.nickname
             self.outputEditedImage.value = UserDefaultManager.profileImage
+        }
+        
+        inputToEditProfileBtnTapped.bind { _ in
+            self.outputToEditProfileBtnTapped.value = ()
         }
         
         outputNavigationTitle.bind { _ in

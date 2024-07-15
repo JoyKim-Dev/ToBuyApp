@@ -23,9 +23,9 @@ import UIKit
         
         let profileVC = UINavigationController(rootViewController: ProfileMainVC())
         profileVC.tabBarItem = UITabBarItem(title: "설정", image: Icon.person, tag: 2)
-        
-        
 
         setViewControllers([shoppingBagVC, searchVC, profileVC], animated: true)
     }
+     
+    
 }

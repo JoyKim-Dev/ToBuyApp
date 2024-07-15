@@ -10,6 +10,7 @@ import RealmSwift
 
 final class ShoppingBagRepository {
     
+    static let shared = ShoppingBagRepository()
     let realm = try! Realm()
     
     func detectRealmURL() {

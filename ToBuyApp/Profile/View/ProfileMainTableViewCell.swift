@@ -11,21 +11,27 @@ import SnapKit
 import RealmSwift
 
 final class ProfileMainTableViewCell: BaseTableViewCell {
-
+    
+    private let viewModel = ProfileMainTableViewCellViewModel()
     private let label = UILabel()
-    private let bagBtn = UIButton()
-    let realm = try! Realm()
-    let repository = ShoppingBagRepository()
+    private let bagBtn = {
+        let view = UIButton()
+        view.setTitleColor(Color.black, for: .normal)
+        view.titleLabel?.font = Font.semiBold15
+        view.setImage(Icon.likeSelected, for: .normal)
+        view.imageEdgeInsets = UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 100)
+        return view
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func configHierarchy() {
         contentView.addSubview(label)
         contentView.addSubview(bagBtn)
@@ -50,17 +56,15 @@ final class ProfileMainTableViewCell: BaseTableViewCell {
         label.text = data
         label.font = Font.semiBold15
         
-        let likes = repository.fetchAlls()
-
         if indexPath == 0 {
             bagBtn.isHidden = false
-            bagBtn.setTitleColor(Color.black, for: .normal)
-            bagBtn.setTitle("\(likes.count)개의 상품", for: .normal)
-            bagBtn.titleLabel?.font = Font.semiBold15
-            bagBtn.setImage(Icon.likeSelected, for: .normal)
-            bagBtn.imageEdgeInsets = UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 100)
+            viewModel.outputShoppingBagItemCount.bind { value in
+                self.bagBtn.setTitle("\(value)개의 상품", for: .normal)
+            }
+            
         } else {
             bagBtn.isHidden = true
+           
         }
     }
 }

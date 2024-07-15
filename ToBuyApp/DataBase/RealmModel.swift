@@ -5,8 +5,6 @@
 //  Created by Joy Kim on 7/10/24.
 //
 
-// database를 왜 사용할까? UserDefault를 써도 될텐데...
-
 import Foundation
 import RealmSwift
 

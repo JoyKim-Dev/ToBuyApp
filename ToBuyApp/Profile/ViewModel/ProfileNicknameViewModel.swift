@@ -13,6 +13,7 @@ final class ProfileNicknameViewModel {
     var inputtextFieldDidChange: Observable<String?> = Observable("")
     var inputImageTapped: Observable<Void?> = Observable(nil)
     
+    var outputImageTapped: Observable<Void?> = Observable(nil)
     var outputNavigationTitle: Observable<String> = Observable("")
     var outputNickTextFieldText: Observable<String> = Observable("")
     var outputImage: Observable<Int> = Observable(0)
@@ -24,6 +25,9 @@ final class ProfileNicknameViewModel {
     }
     private func transform() {
         
+        inputImageTapped.bind { _ in
+            self.outputImageTapped.value  = ()
+        }
         outputNavigationTitle.bind { _ in
             self.setNavigationTitle()
         }
@@ -36,8 +40,8 @@ final class ProfileNicknameViewModel {
         inputtextFieldDidChange.bind { _ in
             self.nicknameValidation()
         }
-        inputBackBtnTapped.bind {[weak self] _ in
-            self?.resetSelectedImage()
+        inputBackBtnTapped.bind { _ in
+            self.resetSelectedImage()
         }
     }
     
@@ -72,33 +76,39 @@ final class ProfileNicknameViewModel {
         }
     }
     private func nicknameValidation()  {
-        guard let nickname = inputtextFieldDidChange.value else {return}
-        guard !nickname.isEmpty else {
-            outputNicknameStatus.value = TextFieldValidation.emptyString.value
-            return
+        
+        if !outputNickTextFieldText.value.isEmpty && inputtextFieldDidChange.value == "" {
+            outputNicknameStatus.value = TextFieldValidation.valid.value
+            outputSubmitBtn.value = true
+        } else {
+            guard let nickname = inputtextFieldDidChange.value else {return}
+            guard !nickname.isEmpty else {
+                outputNicknameStatus.value = TextFieldValidation.emptyString.value
+                return
+            }
+            guard nickname.count > 1 && nickname.count < 10 else {
+                outputNicknameStatus.value = TextFieldValidation.tooShortOrTooLong.value
+                outputSubmitBtn.value = false
+                return
+            }
+            guard nickname.containsNumber() == false else {
+                outputNicknameStatus.value = TextFieldValidation.isInt.value
+                outputSubmitBtn.value = false
+                return
+            }
+            guard nickname.containsAnyOfSpecificSymbols(["@","#","$","%"]) == false else {
+                outputNicknameStatus.value = TextFieldValidation.containsSymbol.value
+                outputSubmitBtn.value = false
+                return
+            }
+            guard !nickname.contains(" ") else {
+                outputNicknameStatus.value = TextFieldValidation.containsBlank.value
+                outputSubmitBtn.value = false
+                return
+            }
+            outputNicknameStatus.value = TextFieldValidation.valid.value
+            outputSubmitBtn.value = true
         }
-        guard nickname.count > 1 && nickname.count < 10 else {
-            outputNicknameStatus.value = TextFieldValidation.tooShortOrTooLong.value
-            outputSubmitBtn.value = false
-            return
-        }
-        guard nickname.containsNumber() == false else {
-            outputNicknameStatus.value = TextFieldValidation.isInt.value
-            outputSubmitBtn.value = false
-            return
-        }
-        guard nickname.containsAnyOfSpecificSymbols(["@","#","$","%"]) == false else {
-            outputNicknameStatus.value = TextFieldValidation.containsSymbol.value
-            outputSubmitBtn.value = false
-            return
-        }
-        guard !nickname.contains(" ") else {
-            outputNicknameStatus.value = TextFieldValidation.containsBlank.value
-            outputSubmitBtn.value = false
-            return
-        }
-        outputNicknameStatus.value = TextFieldValidation.valid.value
-        outputSubmitBtn.value = true
     }
     private func outputSubmitBtnisOn() {
         if outputNicknameStatus.value != TextFieldValidation.valid.value {

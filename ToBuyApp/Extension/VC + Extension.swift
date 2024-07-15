@@ -22,5 +22,16 @@ extension UIViewController {
         @objc func dismissKeyboard() {
             view.endEditing(true)
         }
+    
+    func sceneDelegateRootViewTransition(toVC: UIViewController ) {
+         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+         let sceneDelegate = windowScene?.delegate as? SceneDelegate
+         sceneDelegate?.window?.rootViewController = toVC
+         sceneDelegate?.window?.makeKeyAndVisible()
+     }
+    
+    func viewControllerPushTransition(toVC: UIViewController) {
+        navigationController?.pushViewController(toVC, animated: true)
+    }
 }
 
