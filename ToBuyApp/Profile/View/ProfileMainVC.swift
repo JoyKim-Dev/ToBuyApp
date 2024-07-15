@@ -32,6 +32,7 @@ final class ProfileMainVC:BaseViewController {
         
         profileImageNumData = UserDefaultManager.profileImage
         profileImageView.changeImage(profileNum: profileImageNumData)
+        profileNameLabel
         tableView.reloadData()
         
         }

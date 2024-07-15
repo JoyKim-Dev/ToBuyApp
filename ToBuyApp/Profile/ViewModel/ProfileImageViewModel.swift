@@ -8,7 +8,7 @@
 import Foundation
 
 final class ProfileImageViewModel {
-
+    
     var outputNavigationTitle: Observable<String> = Observable("")
     
     init() {
@@ -18,7 +18,7 @@ final class ProfileImageViewModel {
         outputNavigationTitle.bind { _ in
             self.setNavigationTitle()
         }
-
+        
     }
     
     private func setNavigationTitle() {
@@ -28,4 +28,4 @@ final class ProfileImageViewModel {
             outputNavigationTitle.value = "PROFILE SETTING"
         }
     }
-    }
+}

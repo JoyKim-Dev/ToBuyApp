@@ -16,14 +16,13 @@ final class ShoppingBagRepository {
         print(realm.configuration.fileURL ?? "")
     }
     
-    func createItem(_ item: ShoppingBagItemTable, completion: @escaping (Result<Void, Error>) -> Void) {
+    func createItem(_ item: ShoppingBagItemTable, category: Category) {
         do {
             try realm.write {
                 realm.add(item)
-                completion(.success(()))
-            }
+                print("Realm save succeed")}
         } catch {
-            completion(.failure(error))
+            print("catch error")
         }
     }
     
@@ -42,17 +41,19 @@ final class ShoppingBagRepository {
         return realm.objects(ShoppingBagItemTable.self).sorted(byKeyPath: "likedDate", ascending: true)
     }
     
-    func deleteItem(productId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func deleteItem(id: String) {
         do {
-            if let item = realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: productId) {
-                try realm.write {
-                    realm.delete(item)
-                    completion(.success(()))
+                    if let item = realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: id) {
+                        try realm.write {
+                            realm.delete(item)
+                            print("Realm delete succeed")
+                        }
+                    } else {
+                        print("Item not found in Realm")
+                    }
+                } catch {
+                    print("catch error: \(error.localizedDescription)")
                 }
             }
-        } catch {
-            completion(.failure(error))
-        }
-    }
 }
 
