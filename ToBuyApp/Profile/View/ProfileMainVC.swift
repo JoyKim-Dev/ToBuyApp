@@ -11,7 +11,6 @@ final class ProfileMainVC:BaseViewController {
     
     let viewModel = ProfileMainViewModel()
     
-    
     private let profileView = UIView()
     private lazy var profileImageView = ProfileImageView(profileImageNum: profileImageNumData, cameraBtnMode: .isHidden, isSelected: true)
     
@@ -125,6 +124,7 @@ final class ProfileMainVC:BaseViewController {
         }
         viewModel.outputToEditProfileBtnTapped.bindLater { _ in
             self.viewControllerPushTransition(toVC: ProfileNicknameVC())
+
         }
     }
 
@@ -142,7 +142,6 @@ extension ProfileMainVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileMainTableViewCell.identifier, for: indexPath) as! ProfileMainTableViewCell
         let data = viewModel.profileMenu[indexPath.row]
         cell.configUI(data: data, indexPath: indexPath.row)
-        
         switch indexPath.row {
         case 1,2,3:
             cell.selectionStyle = .none
@@ -160,6 +159,8 @@ extension ProfileMainVC: UITableViewDelegate, UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: true)
         case 4:
             AlertManager.showAlert(viewController: self, title: AlertMessage.deleteAccountTitle.text, message: AlertMessage.deleteAccountMessage.text, ok: AlertMessage.answerOK.text) {
+               self.viewModel.inputDeleteAccount.value = ()
+              
                 UserDefaultManager.shared.clearUserDefaults()
                 let navOnboardingVC = UINavigationController(rootViewController: OnboardingVC())
                 self.sceneDelegateRootViewTransition(toVC: navOnboardingVC)

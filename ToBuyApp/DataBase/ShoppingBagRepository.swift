@@ -10,7 +10,9 @@ import RealmSwift
 
 final class ShoppingBagRepository {
     
-    static let shared = ShoppingBagRepository()
+   static let shared = ShoppingBagRepository()
+    private init() {}
+    
     let realm = try! Realm()
     
     func detectRealmURL() {
@@ -44,17 +46,26 @@ final class ShoppingBagRepository {
     
     func deleteItem(id: String) {
         do {
-                    if let item = realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: id) {
-                        try realm.write {
-                            realm.delete(item)
-                            print("Realm delete succeed")
-                        }
-                    } else {
-                        print("Item not found in Realm")
-                    }
-                } catch {
-                    print("catch error: \(error.localizedDescription)")
+            if let item = realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: id) {
+                try realm.write {
+                    realm.delete(item)
+                    print("Realm delete succeed")
                 }
+            } else {
+                print("Item not found in Realm")
             }
+        } catch {
+            print("catch error: \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteAll() {
+        do{
+            try realm.write{
+                realm.deleteAll()
+            }
+        } catch {
+            print("삭제 실패")
+        }
+    }
 }
-

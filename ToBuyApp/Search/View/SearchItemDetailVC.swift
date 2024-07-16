@@ -13,11 +13,10 @@ import RealmSwift
 
 final class SearchItemDetailVC: BaseViewController {
     let realm = try! Realm()
-    let repository = ShoppingBagRepository()
-    let categoryRepository = CategoryRepository()
+    let repository = ShoppingBagRepository.shared
+    let categoryRepository = CategoryRepository.shared
     var searchDataFromPreviousPage:ItemResult?
     var likedDataFromPreviousPage: String = ""
-    let folderRepository = CategoryRepository()
     var detail = List<ShoppingBagItemTable>()
     
     private let webView = WKWebView()

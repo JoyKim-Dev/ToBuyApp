@@ -19,7 +19,7 @@ final class SearchResultCollectionViewCell: BaseCollectionViewCell {
     private let storeNameLabel = UILabel()
     private let productNameLabel = UILabel()
     private let productPriceLabel = UILabel()
-    let repository = ShoppingBagRepository()
+    let repository = ShoppingBagRepository.shared
    
     
     override init(frame: CGRect) {

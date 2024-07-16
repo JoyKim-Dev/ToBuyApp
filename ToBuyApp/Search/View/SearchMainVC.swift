@@ -10,7 +10,7 @@ import SnapKit
 
 final class SearchMainVC:BaseViewController {
     
-    private let viewModel = SearchMainViewModel()
+    let viewModel = SearchMainViewModel()
     
     private let searchBar = SearchBar()
     private let lineView = LineView()
@@ -18,8 +18,8 @@ final class SearchMainVC:BaseViewController {
     private let emptylistImageView = UIImageView()
     
     private let headerLabel = UILabel()
-    private let noSearchWorldLabel = {
-    let view = UILabel()
+    private let noSearchWordLabel = {
+        let view = UILabel()
         view.text = "최근 검색어가 없어요 🥹 \n원하시는 상품을 검색해보세요"
         view.font = Font.heavy20
         view.textColor = Color.black
@@ -34,13 +34,17 @@ final class SearchMainVC:BaseViewController {
         super.viewDidLoad()
         bindData()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.inputViewWillAppear.value = ()
+        reloadSearchView()
+        listTableView.reloadData()
+    }
     override func configHierarchy() {
         view.addSubview(searchBar)
         view.addSubview(lineView)
         view.addSubview(listTableView)
         view.addSubview(emptylistImageView)
-        view.addSubview(noSearchWorldLabel)
+        view.addSubview(noSearchWordLabel)
     }
     
     override func configLayout() {
@@ -63,7 +67,7 @@ final class SearchMainVC:BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
-        noSearchWorldLabel.snp.makeConstraints { make in
+        noSearchWordLabel.snp.makeConstraints { make in
             make.top.equalTo(emptylistImageView.snp.bottom).inset(100)
             make.centerX.equalTo(view)
         }
@@ -75,13 +79,13 @@ final class SearchMainVC:BaseViewController {
         
         listTableView.delegate = self
         listTableView.dataSource = self
-        listTableView.register(SearchListTableViewCell.self, forCellReuseIdentifier: SearchListTableViewCell.identifier)
+        listTableView.register(SearchMainTableViewCell.self, forCellReuseIdentifier: SearchMainTableViewCell.identifier)
         
         searchBar.delegate = self
         
         emptylistImageView.image = Image.emptyImage
         emptylistImageView.contentMode = .scaleAspectFit
-         
+        
         headerLabel.text = "최근 검색"
         headerLabel.font = Font.semiBold15
         
@@ -92,114 +96,116 @@ final class SearchMainVC:BaseViewController {
     }
     
     func bindData() {
-        
         viewModel.outputNavigationTitle.bind { value in
             self.setNavTitle(value)
+        }
+        viewModel.outputEditedNavigationTitle.bind { value in
+            self.setNavTitle(value)
+        }
+        viewModel.outputSearchBarValidationResult.bindLater { bool in
+            if bool {
+                let vc = SearchResultVC()
+                vc.viewModel.inputSearchwordFromPreviousPage.value = UserDefaultManager.searchKeyword.first ?? ""
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                AlertManager.showAlert(viewController: self, title: AlertMessage.searchErrorTitle.text, message: AlertMessage.searchErrorMessage.text, ok: AlertMessage.answerOK.text) {
+                    print("alert")
+                }
+            }
+        }
+        
+        viewModel.outputTableViewStatus.bind { bool in
+            self.listTableView.isHidden = bool
+        }
+        viewModel.outputImageViewStatus.bind { bool in
+            self.emptylistImageView.isHidden = bool
+        }
+        viewModel.outputNoSearchWordLabelStatus.bind { bool in
+            self.noSearchWordLabel.isHidden = bool
+        }
+        viewModel.outputSearchBarText.bind { text in
+            self.searchBar.text = text
         }
     }
     
     private func reloadSearchView() {
-        if UserDefaultManager.searchKeyword.count == 0 {
-            listTableView.isHidden = true
-            emptylistImageView.isHidden = false
-            noSearchWorldLabel.isHidden = false
-            listTableView.reloadData()
-        } else {
-            listTableView.isHidden = false
-            emptylistImageView.isHidden = true
-            noSearchWorldLabel.isHidden = true
-            listTableView.reloadData()
-        }
+        
+        viewModel.inputReloadSearchView.value = ()
     }
-
-@objc func deleteBtnTapped(_ sender: UIButton) {
-    UserDefaultManager.searchKeyword.remove(at: sender.tag)
-//    viewModel.inputDeleteAt.value = sender.tag
-//    viewModel.inputDeleteBtnTapped.value = ()
-    reloadSearchView()
-}
-
-@objc func deleteAllTapped() {
-    viewModel.inputDeleteAllTapped.value = ()
-    UserDefaultManager.searchKeyword.removeAll()
-    reloadSearchView()
-}
+    
+    @objc func deleteBtnTapped(_ sender: UIButton) {
+        print(#function)
+       UserDefaultManager.searchKeyword.remove(at: sender.tag)
+//        viewModel.inputDeleteBtnTapped.value = (sender.tag)
+        listTableView.reloadData()
+        reloadSearchView()
+    }
+    
+    @objc func deleteAllTapped() {
+        print(#function)
+       viewModel.inputDeleteAllTapped.value = ()
+        listTableView.reloadData()
+        reloadSearchView()
+    }
 }
 
 extension SearchMainVC: UITableViewDelegate, UITableViewDataSource {
-
-func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 30
-}
-
-func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerView = UIView()
-    headerView.backgroundColor = .white
     
-    headerView.addSubview(headerLabel)
-    headerView.addSubview(headerDeleteAllBtn)
-    
-    
-    headerLabel.snp.makeConstraints { make in
-        make.centerY.equalTo(headerView)
-        make.leading.equalTo(headerView.safeAreaLayoutGuide).inset(10)
-    }
-    headerDeleteAllBtn.snp.makeConstraints { make in
-        make.centerY.equalTo(headerView)
-        make.trailing.equalTo(headerView.safeAreaLayoutGuide).inset(10)
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
     
-    return headerView
-}
-func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return UserDefaultManager.searchKeyword.count
-}
-
-func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: SearchListTableViewCell.identifier , for: indexPath) as! SearchListTableViewCell
-    cell.configUI(searchKeywordRow: indexPath.row)
-    cell.deleteBtn.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
-    return cell
-}
-
-func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    let vc = SearchResultVC()
-    vc.searchWordFromPreviousPage = UserDefaultManager.searchKeyword[indexPath.item]
-    navigationController?.pushViewController(vc, animated: true)
-}
-
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+        
+        headerView.addSubview(headerLabel)
+        headerView.addSubview(headerDeleteAllBtn)
+        
+        
+        headerLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(headerView)
+            make.leading.equalTo(headerView.safeAreaLayoutGuide).inset(10)
+        }
+        headerDeleteAllBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(headerView)
+            make.trailing.equalTo(headerView.safeAreaLayoutGuide).inset(10)
+        }
+        
+        return headerView
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return UserDefaultManager.searchKeyword.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchMainTableViewCell.identifier , for: indexPath) as! SearchMainTableViewCell
+        cell.configUI(searchKeywordRow: indexPath.row)
+        cell.deleteBtn.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = SearchResultVC()
+        vc.viewModel.inputSearchwordFromPreviousPage.value = UserDefaultManager.searchKeyword[indexPath.item]
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 extension SearchMainVC: UISearchBarDelegate {
-
-func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-    if searchBar.text == nil {
-        return false
-    } else {
-        return true
-    }
-}
-
-func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
- 
-    let trimmedText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        
-        if !trimmedText.isEmpty {
-            UserDefaultManager.searchKeyword.insert(searchBar.text!, at: 0)
-            searchBar.text = ""
-            
-            let vc = SearchResultVC()
-            vc.searchWordFromPreviousPage = UserDefaultManager.searchKeyword[0]
-            
-            navigationController?.pushViewController(vc, animated: true)
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        if searchBar.text == nil {
+            return false
         } else {
-            let alert = UIAlertController(title: "검색어 오류", message: "검색어를 입력해 주세요.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+            return true
         }
-
-}
-
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.inputSearchBtnClicked.value = searchBar.text ?? ""
+    }
 }
 

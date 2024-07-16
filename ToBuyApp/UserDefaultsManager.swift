@@ -16,8 +16,6 @@ enum UserDefaultKey: String, CaseIterable {
 
 final class UserDefaultManager {
     static let shared = UserDefaultManager()
-    private init(){}
-    
     static var nickname: String {
         get {
             return UserDefaults.standard.string(forKey: UserDefaultKey.nickname.rawValue) ?? ""
@@ -57,15 +55,10 @@ final class UserDefaultManager {
     
     func clearUserDefaults() {
         let keys = UserDefaultKey.allCases.map { $0.rawValue }
-
-         for i in keys {
-             UserDefaults.standard.removeObject(forKey: i)
-         }
-            UserDefaults.standard.synchronize()
+        
+        for i in keys {
+            UserDefaults.standard.removeObject(forKey: i)
         }
+        UserDefaults.standard.synchronize()
+    }
 }
-
-
-  
-
-

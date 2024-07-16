@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class ProfileMainViewModel {
-    
+    let repository = ShoppingBagRepository.shared
+    //let realm = try! Realm()
     var profileMenu = ["나의 장바구니 목록", "자주 묻는 질문", "1:1문의", "알림 설정", "탈퇴하기"]
     
     var inputViewWillAppear: Observable<Void?> = Observable(nil)
     var inputToEditProfileBtnTapped: Observable<Void?> = Observable(nil)
+    var inputDeleteAccount: Observable<Void?> = Observable(nil)
     
     var outputToEditProfileBtnTapped: Observable<Void?> = Observable(nil)
     var outputNavigationTitle: Observable<String> = Observable("")
@@ -29,7 +32,12 @@ final class ProfileMainViewModel {
     }
     
     private func transform() {
+    
         
+        inputDeleteAccount.bind { _ in
+            self.repository.deleteAll()
+            print("repository deleted")
+        }
         inputViewWillAppear.bind { _ in
             self.outputEditedNickname.value = UserDefaultManager.nickname
             self.outputEditedImage.value = UserDefaultManager.profileImage

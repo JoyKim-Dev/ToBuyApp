@@ -14,7 +14,7 @@ import Kingfisher
 final class ShoppingBagMainCollectionViewCell: BaseCollectionViewCell {
     
     let realm = try! Realm()
-    let repository = ShoppingBagRepository()
+    let repository = ShoppingBagRepository.shared
     let imageView = UIImageView()
     let titleLabel = UILabel()
     let priceLabel = UILabel()

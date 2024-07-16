@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SearchResultSortType:String {
+enum SearchResultSortType:String, CaseIterable {
     case accuracy = "sim"
     case recentDate = "date"
     case priceTopDown = "dsc"

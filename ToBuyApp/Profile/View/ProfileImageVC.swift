@@ -6,11 +6,12 @@
 //
 
 import UIKit
+
 protocol ImageDelegate : AnyObject {
     func imageDataFromImageSettingpage(int:Int)
 }
 
-final class ProfileImageVC: BaseViewController, ProfileImageCoordinator {
+final class ProfileImageVC: BaseViewController {
     
     let viewModel = ProfileImageViewModel()
     

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 import SnapKit
 
 final class ProfileNicknameVC: BaseViewController {

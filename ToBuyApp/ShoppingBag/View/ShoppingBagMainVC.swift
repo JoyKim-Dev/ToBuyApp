@@ -13,8 +13,8 @@ import SnapKit
 final class ShoppingBagMainVC:BaseViewController {
     
     let realm = try! Realm()
-    let repository = ShoppingBagRepository()
-    let categoryRepository = CategoryRepository()
+    let repository = ShoppingBagRepository.shared
+    let categoryRepository = CategoryRepository.shared
     lazy var liked = repository.fetchAlls()
     lazy var list = categoryRepository.fetchCategory()
     var segmentIndex = 0

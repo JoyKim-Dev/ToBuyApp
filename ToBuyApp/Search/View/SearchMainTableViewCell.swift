@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SearchListTableViewCell: BaseTableViewCell {
+final class SearchMainTableViewCell: BaseTableViewCell {
  
     private let leftIconImageView = UIImageView()
     private let searchWordLabel = UILabel()
@@ -63,6 +63,3 @@ final class SearchListTableViewCell: BaseTableViewCell {
        searchWordLabel.font = Font.semiBold14
    }
 }
-
-
-

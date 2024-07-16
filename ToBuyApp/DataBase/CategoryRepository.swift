@@ -12,6 +12,8 @@ import RealmSwift
 final class CategoryRepository {
     
     static let shared = CategoryRepository()
+    private init() {}
+    
     let realm = try! Realm()
  
     func createItem(_ data: ShoppingBagItemTable, category: Category) {
