@@ -34,11 +34,10 @@ final class SearchResultViewModel {
     }
     private func transform() {
         
-        outputNavigationTitle.bind {[weak self] _ in
-            self?.setNavigationTitle()
-        }
         inputViewDidLoadTrigger.bind { [weak self] _ in
             self?.callRequest()
+            self?.setNavigationTitle()
+            
         }
         inputFilterBtnType.bind { [weak self] _ in
             self?.callRequest()

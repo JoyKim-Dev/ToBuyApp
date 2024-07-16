@@ -179,7 +179,7 @@ extension SearchResultVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = SearchItemDetailVC()
-        vc.searchDataFromPreviousPage = viewModel.outputList.value[indexPath.item]
+        vc.viewModel.inputSearchDataFromPreviousPage.value = viewModel.outputList.value[indexPath.item]
         navigationController?.pushViewController(vc, animated: true)
     }
 }
