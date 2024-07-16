@@ -96,19 +96,19 @@ final class SearchMainVC:BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputNavigationTitle.bind { value in
-            self.setNavTitle(value)
+        viewModel.outputNavigationTitle.bind { [weak self] value in
+            self?.setNavTitle(value)
         }
-        viewModel.outputEditedNavigationTitle.bind { value in
-            self.setNavTitle(value)
+        viewModel.outputEditedNavigationTitle.bind { [weak self] value in
+            self?.setNavTitle(value)
         }
-        viewModel.outputSearchBarValidationResult.bindLater { bool in
+        viewModel.outputSearchBarValidationResult.bindLater { [weak self] bool in
             if bool {
                 let vc = SearchResultVC()
                 vc.viewModel.inputSearchwordFromPreviousPage.value = UserDefaultManager.searchKeyword.first ?? ""
-                self.navigationController?.pushViewController(vc, animated: true)
+                self?.navigationController?.pushViewController(vc, animated: true)
             } else {
-                AlertManager.showAlert(viewController: self, title: AlertMessage.searchErrorTitle.text, message: AlertMessage.searchErrorMessage.text, ok: AlertMessage.answerOK.text) {
+                AlertManager.showAlert(viewController: self!, title: AlertMessage.searchErrorTitle.text, message: AlertMessage.searchErrorMessage.text, ok: AlertMessage.answerOK.text) {
                     print("alert")
                 }
             }
@@ -197,11 +197,9 @@ extension SearchMainVC: UITableViewDelegate, UITableViewDataSource {
 extension SearchMainVC: UISearchBarDelegate {
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        if searchBar.text == nil {
-            return false
-        } else {
-            return true
-        }
+
+        viewModel.inputSearchBarShouldEndEditing.value = searchBar.text ?? ""
+        return viewModel.outputSearchBarShouldEndEditing.value
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

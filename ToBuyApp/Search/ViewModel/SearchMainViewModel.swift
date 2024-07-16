@@ -14,6 +14,7 @@ final class SearchMainViewModel {
     var inputDeleteAllTapped: Observable<Void?> = Observable(nil)
     var inputSearchBtnClicked: Observable<String> = Observable("")
     var inputReloadSearchView: Observable<Void?> = Observable(nil)
+    var inputSearchBarShouldEndEditing: Observable<String> = Observable("")
     
     var outputNavigationTitle: Observable<String> = Observable("")
     var outputEditedNavigationTitle: Observable<String> = Observable("")
@@ -22,34 +23,42 @@ final class SearchMainViewModel {
     var outputImageViewStatus: Observable<Bool> = Observable(true)
     var outputNoSearchWordLabelStatus: Observable<Bool> = Observable(true)
     var outputSearchBarText: Observable<String> = Observable("")
- 
+    var outputSearchBarShouldEndEditing: Observable<Bool> = Observable(true)
+    
     
     init() {
         transform()
     }
+    
+    deinit {
+        print("deinit")
+    }
     private func transform() {
-        outputNavigationTitle.bind { _ in
-            self.setNavigationTitle()
+        outputNavigationTitle.bind { [weak self] _ in
+            self?.setNavigationTitle()
         }
         
-        inputViewWillAppear.bind { _ in
-            self.outputEditedNavigationTitle.value = "\(UserDefaultManager.nickname)'s ToBuyBag"
+        inputViewWillAppear.bind { [weak self] _ in
+            self?.outputEditedNavigationTitle.value = "\(UserDefaultManager.nickname)'s ToBuyBag"
         }
         
-//        inputDeleteBtnTapped.bind{ _ in
-//            self.deleteSearchKey()
-//        }
+        //        inputDeleteBtnTapped.bind{ _ in
+        //            self.deleteSearchKey()
+        //        }
         
-        inputDeleteAllTapped.bind { _ in
-            self.deleteSearchHistory()
+        inputDeleteAllTapped.bind { [weak self] _ in
+            self?.deleteSearchHistory()
         }
         
-        inputSearchBtnClicked.bind{ _ in
-            self.searchBarValidation()
+        inputSearchBtnClicked.bind{ [weak self] _ in
+            self?.searchBarValidation()
         }
         
-        inputReloadSearchView.bind { _ in
-            self.reloadSearchViewValidation()
+        inputReloadSearchView.bind {[weak self] _ in
+            self?.reloadSearchViewValidation()
+        }
+        inputSearchBarShouldEndEditing.bind { [weak self] _ in
+            self?.searchBarShouldReturnValidation()
         }
         
     }
@@ -60,9 +69,9 @@ final class SearchMainViewModel {
         
     }
     
-//    private func deleteSearchKey() {
-//        UserDefaultManager.searchKeyword.remove(at: inputDeleteBtnTapped.value)
-//    }
+    //    private func deleteSearchKey() {
+    //        UserDefaultManager.searchKeyword.remove(at: inputDeleteBtnTapped.value)
+    //    }
     
     private func deleteSearchHistory() {
         UserDefaultManager.searchKeyword.removeAll()
@@ -95,6 +104,14 @@ final class SearchMainViewModel {
             self.outputTableViewStatus.value = false
             self.outputImageViewStatus.value = true
             self.outputNoSearchWordLabelStatus.value = true
+        }
+    }
+    
+    private func searchBarShouldReturnValidation() {
+        if inputSearchBarShouldEndEditing.value.isEmpty {
+            outputSearchBarShouldEndEditing.value = false
+        } else {
+            outputSearchBarShouldEndEditing.value = true
         }
     }
 }

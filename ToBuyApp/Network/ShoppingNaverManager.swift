@@ -40,7 +40,7 @@ enum RequestError: Error {
     }
 }
 // ResultType으로 하나의 매개변수 함수 활용
-typealias NaverShoppingHander = (Result<[ItemResult], RequestError>) -> Void
+typealias NaverShoppingHander = (Result<Product, RequestError>) -> Void
 
 class ShoppingNaverManager {
     
@@ -108,7 +108,7 @@ class ShoppingNaverManager {
                         let result = try JSONDecoder().decode(Product.self, from: data)
                         print(result)
                      
-                            completionHandler(.success(result.items))
+                            completionHandler(.success(result))
                         
                     } catch {
                         print("error")

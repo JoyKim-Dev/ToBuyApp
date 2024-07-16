@@ -18,6 +18,7 @@ final class SearchResultViewModel {
     var inputSearchwordFromPreviousPage: Observable<String> = Observable("")
     var inputQueryPage: Observable<Int> = Observable(1)
     var inputLikeBtnTapped: Observable<Int> = Observable(0)
+    var inputCollectionViewDataPrefetching: Observable<[IndexPath]?> = Observable([])
     
     var outputNavigationTitle: Observable<String> = Observable("")
     var outputList: Observable<[ItemResult]> = Observable([])
@@ -45,6 +46,9 @@ final class SearchResultViewModel {
         inputLikeBtnTapped.bind { [weak self] _ in
             self?.shoppingItemValidation()
         }
+        inputCollectionViewDataPrefetching.bind { [weak self] _ in
+            self?.paginationCallRequest()
+        }
         
     }
     private func setNavigationTitle() {
@@ -56,12 +60,17 @@ final class SearchResultViewModel {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let data):
-                    self.outputList.value = data
-                    self.outputResultCountLabel.value = "\(data.count)개의 검색 결과"
+                    self.outputResultCountLabel.value = "\(data.total.formatted())개의 검색 결과"
+                    if self.inputQueryPage.value == 1 {
+                        self.outputList.value = data.items
+                    } else {
+                        self.outputList.value.append(contentsOf: data.items)
+                    }
+                    
+                    
                 case .failure(let failure):
                     self.outputError.value = failure.self
                     print(failure.message,failure.title)
-                    
                 }
             }
         }
@@ -98,6 +107,17 @@ final class SearchResultViewModel {
             }
         } else {
             print("Error: Index out of range")
+        }
+    }
+    
+    private func paginationCallRequest() {
+        guard let indexPaths = inputCollectionViewDataPrefetching.value else {return}
+        
+        for i in indexPaths {
+            if outputList.value.count - 3 == i.item {
+                inputQueryPage.value += 1
+                callRequest()
+            }
         }
     }
 }

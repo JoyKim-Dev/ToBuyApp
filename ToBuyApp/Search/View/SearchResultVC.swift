@@ -48,7 +48,6 @@ final class SearchResultVC: BaseViewController {
         view.addSubview(searchResultCollectionView)
         
         for i in btns {
-            
             filterStackView.addArrangedSubview(i)
         }
     }
@@ -71,7 +70,6 @@ final class SearchResultVC: BaseViewController {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
     }
     
     override func configView() {
@@ -118,10 +116,10 @@ final class SearchResultVC: BaseViewController {
         viewModel.outputList.bind { [weak self] _ in
             self?.searchResultCollectionView.reloadData()
         }
-//        viewModel.outputError.bind { error in
-//            AlertManager.showAlert(viewController: self, title: error?.title! , message: error?.message!, ok: "확인") {
-//            }
-//        }
+        //        viewModel.outputError.bind { error in
+        //            AlertManager.showAlert(viewController: self, title: error?.title! , message: error?.message!, ok: "확인") {
+        //            }
+        //        }
         viewModel.outputResultCountLabel.bind {[weak self] text in
             self?.numberOfResultLabel.text = text
         }
@@ -129,33 +127,7 @@ final class SearchResultVC: BaseViewController {
     }
     @objc func likeBtnTapped(sender: UIButton) {
         viewModel.inputLikeBtnTapped.value = sender.tag
-        
-        //            let index = sender.tag
-        //            print(index)
-        //            let id = viewModel.outputList.value.items[index].productId
-        //            liked = ShoppingBagItemTable(id: id, title: list.items[index].title, price: list.items[index].lprice, webLink: list.items[index].link, category: list.items[index].category2, image: list.items[index].image )
-        //
-        //            guard let data = liked else {
-        //                print("data nil")
-        //                return}
-        //
-        //            let categoryName = realm.objects(Category.self).where {
-        //                $0.category == data.category}
-        //
-        //            if let _ = realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: id) {
-        //                realmRepository.deleteItem(id: id)
-        //                print("Product deleted")
-        //            } else {
-        //                    if let category = categoryName.first {
-        //                        realmRepository.createItem(data, category: category)
-        //                    } else {
-        //                        detail.append(data)
-        //                        let category = Category(category: data.category, detail: detail)
-        //                        categoryRepository.createCategory(category)
-        //                        detail.removeAll()
-        //                    }
-        //            }
-                    searchResultCollectionView.reloadData()
+        searchResultCollectionView.reloadData()
         
     }
     
@@ -215,12 +187,7 @@ extension SearchResultVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension SearchResultVC: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         
-        //            for i in indexPaths {
-        //                if list.items.count - 3 == i.item {
-        //                    start += 1
-        //                    callRequest(searchQuery: query ?? "미정")
-        //                }
-        //            }
+        viewModel.inputCollectionViewDataPrefetching.value = indexPaths
     }
 }
 

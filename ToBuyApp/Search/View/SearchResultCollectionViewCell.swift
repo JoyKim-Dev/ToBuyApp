@@ -12,9 +12,8 @@ import Kingfisher
 import RealmSwift
 
 final class SearchResultCollectionViewCell: BaseCollectionViewCell {
-    let realm = try! Realm()
     private let productImageView = UIImageView()
-     let likeBtn = LikeBtn()
+    let likeBtn = LikeBtn()
     
     private let storeNameLabel = UILabel()
     private let productNameLabel = UILabel()
@@ -90,7 +89,7 @@ final class SearchResultCollectionViewCell: BaseCollectionViewCell {
         productNameLabel.numberOfLines = 2
         
         
-        if let _ = realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: data.productId) {
+        if let _ = repository.realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: data.productId) {
             likeBtn.backgroundColor = Color.white
             likeBtn.setImage(Icon.likeSelected, for: .normal)
             likeBtn.tintColor = Color.black
