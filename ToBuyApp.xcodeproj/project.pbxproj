@@ -33,8 +33,7 @@
 		350469C72C3ED07F00F3FB9A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 350469C62C3ED07F00F3FB9A /* .gitignore */; };
 		350469C92C3ED0A500F3FB9A /* APIKEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469C82C3ED0A500F3FB9A /* APIKEY.swift */; };
 		350469CB2C3ED0DF00F3FB9A /* NaverShoppingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CA2C3ED0DF00F3FB9A /* NaverShoppingModel.swift */; };
-		350469CD2C3ED0EF00F3FB9A /* NaverShoppingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CC2C3ED0EF00F3FB9A /* NaverShoppingManager.swift */; };
-		350469CF2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CE2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift */; };
+		350469CF2C3ED1BA00F3FB9A /* ShoppingNaverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469CE2C3ED1BA00F3FB9A /* ShoppingNaverManager.swift */; };
 		350469D12C3ED20300F3FB9A /* NumberFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469D02C3ED20300F3FB9A /* NumberFormatterManager.swift */; };
 		350469D32C3ED2C600F3FB9A /* SearchMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469D22C3ED2C600F3FB9A /* SearchMainVC.swift */; };
 		350469D52C3ED2D000F3FB9A /* SearchMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350469D42C3ED2D000F3FB9A /* SearchMainViewModel.swift */; };
@@ -71,9 +70,6 @@
 		35046A132C3EDA7B00F3FB9A /* shoppingBagBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A122C3EDA7B00F3FB9A /* shoppingBagBtn.swift */; };
 		35046A152C3EDDC000F3FB9A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A142C3EDDC000F3FB9A /* Observable.swift */; };
 		35046A172C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35046A162C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift */; };
-		355E318A2C43A0CD00EE503A /* ProfileImageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */; };
-		355E318C2C43A5BE00EE503A /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */; };
-		355E318E2C43B8C000EE503A /* ProfileNicknameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */; };
 		35AAD6252C45469E0008796F /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AAD6242C45469E0008796F /* DateFormatterManager.swift */; };
 		35AAD6272C4553350008796F /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AAD6262C4553350008796F /* AlertManager.swift */; };
 		35AAD6292C455D750008796F /* AlertMessage + Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AAD6282C455D750008796F /* AlertMessage + Enum.swift */; };
@@ -120,8 +116,7 @@
 		350469C62C3ED07F00F3FB9A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		350469C82C3ED0A500F3FB9A /* APIKEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKEY.swift; sourceTree = "<group>"; };
 		350469CA2C3ED0DF00F3FB9A /* NaverShoppingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverShoppingModel.swift; sourceTree = "<group>"; };
-		350469CC2C3ED0EF00F3FB9A /* NaverShoppingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverShoppingManager.swift; sourceTree = "<group>"; };
-		350469CE2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverShoppingRequest.swift; sourceTree = "<group>"; };
+		350469CE2C3ED1BA00F3FB9A /* ShoppingNaverManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingNaverManager.swift; sourceTree = "<group>"; };
 		350469D02C3ED20300F3FB9A /* NumberFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterManager.swift; sourceTree = "<group>"; };
 		350469D22C3ED2C600F3FB9A /* SearchMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMainVC.swift; sourceTree = "<group>"; };
 		350469D42C3ED2D000F3FB9A /* SearchMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMainViewModel.swift; sourceTree = "<group>"; };
@@ -158,9 +153,6 @@
 		35046A122C3EDA7B00F3FB9A /* shoppingBagBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shoppingBagBtn.swift; sourceTree = "<group>"; };
 		35046A142C3EDDC000F3FB9A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		35046A162C3EE13C00F3FB9A /* TextFieldValidation + Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextFieldValidation + Enum.swift"; sourceTree = "<group>"; };
-		355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCoordinator.swift; sourceTree = "<group>"; };
-		355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
-		355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameCoordinator.swift; sourceTree = "<group>"; };
 		35AAD6242C45469E0008796F /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		35AAD6262C4553350008796F /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		35AAD6282C455D750008796F /* AlertMessage + Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertMessage + Enum.swift"; sourceTree = "<group>"; };
@@ -272,8 +264,7 @@
 			children = (
 				350469C82C3ED0A500F3FB9A /* APIKEY.swift */,
 				350469CA2C3ED0DF00F3FB9A /* NaverShoppingModel.swift */,
-				350469CE2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift */,
-				350469CC2C3ED0EF00F3FB9A /* NaverShoppingManager.swift */,
+				350469CE2C3ED1BA00F3FB9A /* ShoppingNaverManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -298,9 +289,6 @@
 			isa = PBXGroup;
 			children = (
 				350469F42C3ED54300F3FB9A /* ReuseIdentifierProtocol.swift */,
-				355E318D2C43B8C000EE503A /* ProfileNicknameCoordinator.swift */,
-				355E31892C43A0CD00EE503A /* ProfileImageCoordinator.swift */,
-				355E318B2C43A5BE00EE503A /* TabBarCoordinator.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -497,13 +485,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				355E318A2C43A0CD00EE503A /* ProfileImageCoordinator.swift in Sources */,
-				350469CD2C3ED0EF00F3FB9A /* NaverShoppingManager.swift in Sources */,
 				35C000522C440F8C00B1B526 /* CategoryRepository.swift in Sources */,
 				35046A092C3ED9B400F3FB9A /* NicknameTextField.swift in Sources */,
 				35C000502C440F3000B1B526 /* SearchFilter + Enum.swift in Sources */,
 				350469F72C3ED59800F3FB9A /* Image + Enum.swift in Sources */,
-				355E318C2C43A5BE00EE503A /* TabBarCoordinator.swift in Sources */,
 				350469DF2C3ED35400F3FB9A /* SearchItemDetailVC.swift in Sources */,
 				3504697E2C3EBFAF00F3FB9A /* ViewController.swift in Sources */,
 				35046A132C3EDA7B00F3FB9A /* shoppingBagBtn.swift in Sources */,
@@ -528,8 +513,7 @@
 				35046A0D2C3ED9E900F3FB9A /* NicknameStatusLabel.swift in Sources */,
 				350469B12C3ECE7700F3FB9A /* OnboardingVC.swift in Sources */,
 				350469E72C3ED3F800F3FB9A /* ShoppingBagMainCollectionViewCell.swift in Sources */,
-				350469CF2C3ED1BA00F3FB9A /* NaverShoppingRequest.swift in Sources */,
-				355E318E2C43B8C000EE503A /* ProfileNicknameCoordinator.swift in Sources */,
+				350469CF2C3ED1BA00F3FB9A /* ShoppingNaverManager.swift in Sources */,
 				350469BB2C3ECF1800F3FB9A /* ProfileNicknameViewModel.swift in Sources */,
 				350215552C3FC33300D2FC74 /* Placeholder + Enum.swift in Sources */,
 				350469D72C3ED2E700F3FB9A /* SearchMainTableViewCell.swift in Sources */,

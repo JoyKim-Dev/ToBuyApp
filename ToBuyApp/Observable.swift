@@ -13,24 +13,20 @@ final class Observable<T> {
  
     var value: T {
         didSet {
-            print("didset")
             closure?(value)
         }
     }
     
     init(_ value: T) {
-        print("init")
         self.value = value
     }
     
     func bind(closure: @escaping (T) -> Void) {
-        print(#function)
         closure(value)
         self.closure = closure
     }
     
     func bindLater(closure: @escaping (T) -> Void) {
-        print(#function)
         self.closure = closure
     }
 }

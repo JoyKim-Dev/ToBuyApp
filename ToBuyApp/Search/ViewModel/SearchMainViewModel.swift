@@ -96,9 +96,5 @@ final class SearchMainViewModel {
             self.outputImageViewStatus.value = true
             self.outputNoSearchWordLabelStatus.value = true
         }
-        
     }
-    
-   
-    
 }

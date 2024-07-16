@@ -7,13 +7,10 @@
 
 import Foundation
 import RealmSwift
-import Alamofire
 
 final class SearchResultViewModel {
     let realmRepository = ShoppingBagRepository.shared
     let categoryRepository = CategoryRepository.shared
-    
-    //    var liked: ShoppingBagItemTable?
     var detail = List<ShoppingBagItemTable>()
     
     var inputViewDidLoadTrigger = Observable(())
@@ -31,16 +28,17 @@ final class SearchResultViewModel {
         transform()
     }
     
+    deinit {
+        print("deinit")
+    }
     private func transform() {
         
         outputNavigationTitle.bind {[weak self] _ in
             self?.setNavigationTitle()
         }
-        
         inputViewDidLoadTrigger.bind { [weak self] _ in
             self?.callRequest()
         }
-        
         inputFilterBtnType.bind { [weak self] _ in
             self?.callRequest()
         }
@@ -68,39 +66,38 @@ final class SearchResultViewModel {
             }
         }
     }
-
+    
     private func shoppingItemValidation() {
         if inputLikeBtnTapped.value < outputList.value.count {
-        let item = outputList.value[inputLikeBtnTapped.value]
-        let id = item.productId
-        let title = item.title
-        let price = item.lprice
-        let weblink = item.link
-        let category = item.category2
-        let image = item.image
-        
-        let liked = ShoppingBagItemTable(id: id, title: title, price: price, webLink: weblink, category: category, image: image )
-     
-        let categoryName = categoryRepository.realm.objects(Category.self).where {
-            $0.category == liked.category}
-        
-        if let _ = categoryRepository.realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: id) {
-            realmRepository.deleteItem(id: id)
-            print("Product deleted")
-        } else {
-            if let category = categoryName.first {
-                realmRepository.createItem(liked, category: category)
+            let item = outputList.value[inputLikeBtnTapped.value]
+            let id = item.productId
+            let title = item.title
+            let price = item.lprice
+            let weblink = item.link
+            let category = item.category2
+            let image = item.image
+            
+            let liked = ShoppingBagItemTable(id: id, title: title, price: price, webLink: weblink, category: category, image: image )
+            
+            let categoryName = categoryRepository.realm.objects(Category.self).where {
+                $0.category == liked.category}
+            
+            if let _ = categoryRepository.realm.object(ofType: ShoppingBagItemTable.self, forPrimaryKey: id) {
+                realmRepository.deleteItem(id: id)
+                print("Product deleted")
+                
             } else {
-                self.detail.append(liked)
-                let category = Category(category: liked.category, detail: detail)
-                categoryRepository.createCategory(category)
-                detail.removeAll()
+                if let category = categoryName.first {
+                    realmRepository.createItem(liked, category: category)
+                } else {
+                    self.detail.append(liked)
+                    let category = Category(category: liked.category, detail: detail)
+                    categoryRepository.createCategory(category)
+                    detail.removeAll()
+                }
             }
-        }
         } else {
-            // 인덱스가 범위를 초과한 경우 처리 방법
             print("Error: Index out of range")
-            return  // 혹은 다른 처리 로직 추가
         }
     }
 }
