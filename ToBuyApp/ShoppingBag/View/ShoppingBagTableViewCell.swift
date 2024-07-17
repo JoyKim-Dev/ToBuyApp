@@ -36,7 +36,7 @@ final class ShoppingBagTableViewCell: BaseTableViewCell {
     
     func configUI(data: Category) {
         super.configUI()
-        
+        print(data)
         brandLabel.text = data.category
         brandLabel.backgroundColor = Color.orange
         brandLabel.textColor = Color.white

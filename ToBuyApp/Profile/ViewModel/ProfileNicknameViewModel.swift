@@ -25,23 +25,23 @@ final class ProfileNicknameViewModel {
     }
     private func transform() {
         
-        inputImageTapped.bind { _ in
-            self.outputImageTapped.value  = ()
+        inputImageTapped.bind {  [weak self] _ in
+            self?.outputImageTapped.value  = ()
         }
-        outputNavigationTitle.bind { _ in
-            self.setNavigationTitle()
+        outputNavigationTitle.bind {  [weak self] _ in
+            self?.setNavigationTitle()
         }
-        outputNickTextFieldText.bind { _ in
-            self.nicknameTextFieldText()
+        outputNickTextFieldText.bind {  [weak self] _ in
+            self?.nicknameTextFieldText()
         }
-        outputImage.bind { _ in
-            self.selectImage()
+        outputImage.bind {[weak self] _ in
+            self?.selectImage()
         }
-        inputtextFieldDidChange.bind { _ in
-            self.nicknameValidation()
+        inputtextFieldDidChange.bind {  [weak self] _ in
+            self?.nicknameValidation()
         }
-        inputBackBtnTapped.bind { _ in
-            self.resetSelectedImage()
+        inputBackBtnTapped.bind {  [weak self] _ in
+            self?.resetSelectedImage()
         }
     }
     

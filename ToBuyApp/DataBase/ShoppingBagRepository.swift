@@ -43,6 +43,10 @@ final class ShoppingBagRepository {
     func fetchAlls() -> Results<ShoppingBagItemTable> {
         return realm.objects(ShoppingBagItemTable.self).sorted(byKeyPath: "likedDate", ascending: true)
     }
+    func fetchAllsInArray() -> [ShoppingBagItemTable] {
+        let value = realm.objects(ShoppingBagItemTable.self)
+        return Array(value)
+    }
     
     func deleteItem(id: String) {
         do {

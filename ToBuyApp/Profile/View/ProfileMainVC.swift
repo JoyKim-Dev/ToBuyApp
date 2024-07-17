@@ -102,28 +102,28 @@ final class ProfileMainVC:BaseViewController {
     
     func bindData() {
         
-        viewModel.outputNavigationTitle.bind { value in
-            self.setNavTitle(value)
+        viewModel.outputNavigationTitle.bind {  [weak self] value in
+            self?.setNavTitle(value)
         }
-        viewModel.outputJoinedDate.bind { value in
-            self.joinedDateLabel.text = value
+        viewModel.outputJoinedDate.bind { [weak self] value in
+            self?.joinedDateLabel.text = value
         }
-        viewModel.outputProfileNickname.bind { value in
-            self.profileNameLabel.text = value
+        viewModel.outputProfileNickname.bind { [weak self] value in
+            self?.profileNameLabel.text = value
         }
-        viewModel.outputProfileImage.bind { value in
-            self.profileImageNumData = value
+        viewModel.outputProfileImage.bind { [weak self] value in
+            self?.profileImageNumData = value
         }
-        viewModel.outputEditedNickname.bind { value in
+        viewModel.outputEditedNickname.bind {[weak self] value in
             print(value)
-            self.profileNameLabel.text = value
+            self?.profileNameLabel.text = value
         }
         viewModel.outputEditedImage.bind { value in
             self.profileImageNumData = value
-            self.profileImageView.changeImage(profileNum: self.profileImageNumData)
+            self.profileImageView.changeImage(profileNum: self.profileImageNumData )
         }
-        viewModel.outputToEditProfileBtnTapped.bindLater { _ in
-            self.viewControllerPushTransition(toVC: ProfileNicknameVC())
+        viewModel.outputToEditProfileBtnTapped.bindLater { [weak self] _ in
+            self?.viewControllerPushTransition(toVC: ProfileNicknameVC())
 
         }
     }
@@ -152,11 +152,13 @@ extension ProfileMainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
+        
+        let index = indexPath.row
+        switch index {
         case 0:
-            sceneDelegateRootViewTransition(toVC: TabBarController())
+             sceneDelegateRootViewTransition(toVC: TabBarController())
         case 1,2,3:
-            tableView.deselectRow(at: indexPath, animated: true)
+             tableView.deselectRow(at: indexPath, animated: true)
         case 4:
             AlertManager.showAlert(viewController: self, title: AlertMessage.deleteAccountTitle.text, message: AlertMessage.deleteAccountMessage.text, ok: AlertMessage.answerOK.text) {
                self.viewModel.inputDeleteAccount.value = ()

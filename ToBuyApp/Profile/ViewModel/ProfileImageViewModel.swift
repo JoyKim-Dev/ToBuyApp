@@ -19,8 +19,8 @@ final class ProfileImageViewModel {
         transform()
     }
     private func transform() {
-        outputNavigationTitle.bind { _ in
-            self.setNavigationTitle()
+        outputNavigationTitle.bind {  [weak self] _ in
+            self?.setNavigationTitle()
         }
         
     }

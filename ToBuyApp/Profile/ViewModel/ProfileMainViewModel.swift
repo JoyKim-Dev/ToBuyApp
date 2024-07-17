@@ -34,32 +34,32 @@ final class ProfileMainViewModel {
     private func transform() {
     
         
-        inputDeleteAccount.bind { _ in
-            self.repository.deleteAll()
+        inputDeleteAccount.bind {  [weak self]_ in
+            self?.repository.deleteAll()
             print("repository deleted")
         }
-        inputViewWillAppear.bind { _ in
-            self.outputEditedNickname.value = UserDefaultManager.nickname
-            self.outputEditedImage.value = UserDefaultManager.profileImage
+        inputViewWillAppear.bind {  [weak self]_ in
+            self?.outputEditedNickname.value = UserDefaultManager.nickname
+            self?.outputEditedImage.value = UserDefaultManager.profileImage
         }
         
-        inputToEditProfileBtnTapped.bind { _ in
-            self.outputToEditProfileBtnTapped.value = ()
+        inputToEditProfileBtnTapped.bind { [weak self] _ in
+            self?.outputToEditProfileBtnTapped.value = ()
         }
         
-        outputNavigationTitle.bind { _ in
-            self.setNavigationTitle()
+        outputNavigationTitle.bind {  [weak self]_ in
+            self?.setNavigationTitle()
         }
-        outputJoinedDate.bind { _ in
-            self.setJoindDate()
-        }
-        
-        outputProfileNickname.bind { _ in
-            self.setProfileTitle()
+        outputJoinedDate.bind {  [weak self]_ in
+            self?.setJoindDate()
         }
         
-        outputProfileImage.bind { _ in
-            self.setProfileImage()
+        outputProfileNickname.bind {  [weak self]_ in
+            self?.setProfileTitle()
+        }
+        
+        outputProfileImage.bind {  [weak self]_ in
+            self?.setProfileImage()
         }
 
     }

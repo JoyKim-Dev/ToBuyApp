@@ -42,9 +42,10 @@ final class CategoryRepository {
         print(realm.configuration.fileURL ?? "")
     }
     
-    func fetchCategory() -> Results<Category> {
+    
+    func fetchAllCategoryInArray() -> [Category] {
         let value = realm.objects(Category.self)
-        return value
+        return Array(value)
     }
     
     func fetchAlls() -> Results<Category> {
