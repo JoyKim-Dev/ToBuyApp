@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast
 
 extension UIViewController {
     
@@ -32,6 +33,10 @@ extension UIViewController {
     
     func viewControllerPushTransition(toVC: UIViewController) {
         navigationController?.pushViewController(toVC, animated: true)
+    }
+    
+    func showToast() {
+        self.view.makeToast("🐥 아직 준비중이에요", duration: 1.5)
     }
 }
 

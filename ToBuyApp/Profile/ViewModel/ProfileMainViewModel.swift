@@ -7,12 +7,13 @@
 
 import Foundation
 import RealmSwift
+import Toast
 
 final class ProfileMainViewModel {
     let repository = ShoppingBagRepository.shared
-    //let realm = try! Realm()
     var profileMenu = ["나의 장바구니 목록", "자주 묻는 질문", "1:1문의", "알림 설정", "탈퇴하기"]
     
+    var inputViewDidLoadTrigger = Observable(())
     var inputViewWillAppear: Observable<Void?> = Observable(nil)
     var inputToEditProfileBtnTapped: Observable<Void?> = Observable(nil)
     var inputDeleteAccount: Observable<Void?> = Observable(nil)
@@ -32,7 +33,7 @@ final class ProfileMainViewModel {
     }
     
     private func transform() {
-    
+        
         
         inputDeleteAccount.bind {  [weak self]_ in
             self?.repository.deleteAll()
@@ -47,7 +48,7 @@ final class ProfileMainViewModel {
             self?.outputToEditProfileBtnTapped.value = ()
         }
         
-        outputNavigationTitle.bind {  [weak self]_ in
+        inputViewDidLoadTrigger.bind {  [weak self]_ in
             self?.setNavigationTitle()
         }
         outputJoinedDate.bind {  [weak self]_ in
@@ -61,7 +62,7 @@ final class ProfileMainViewModel {
         outputProfileImage.bind {  [weak self]_ in
             self?.setProfileImage()
         }
-
+        
     }
     
     private func setNavigationTitle() {
@@ -77,21 +78,6 @@ final class ProfileMainViewModel {
         let joined = DateFormatterManager.dateToString(date: UserDefaultManager.joinedDate)
         outputJoinedDate.value = "\(joined)가입"
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

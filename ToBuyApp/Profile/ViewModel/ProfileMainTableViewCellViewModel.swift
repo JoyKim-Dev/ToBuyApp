@@ -17,7 +17,7 @@ final class ProfileMainTableViewCellViewModel {
     
     init() {
         outputShoppingBagItemCount.bind {  [weak self] _ in
-            self?.outputShoppingBagItemCount.value = self?.repository.fetchAlls().count
+            self?.outputShoppingBagItemCount.value = self?.repository.fetchAlls().count ?? 0
         }
     }
 }

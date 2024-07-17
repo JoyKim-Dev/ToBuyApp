@@ -32,6 +32,7 @@ final class ProfileMainVC:BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.inputViewDidLoadTrigger.value = ()
         bindData()
     }
     
@@ -158,7 +159,9 @@ extension ProfileMainVC: UITableViewDelegate, UITableViewDataSource {
         case 0:
              sceneDelegateRootViewTransition(toVC: TabBarController())
         case 1,2,3:
+             showToast()
              tableView.deselectRow(at: indexPath, animated: true)
+            
         case 4:
             AlertManager.showAlert(viewController: self, title: AlertMessage.deleteAccountTitle.text, message: AlertMessage.deleteAccountMessage.text, ok: AlertMessage.answerOK.text) {
                self.viewModel.inputDeleteAccount.value = ()
