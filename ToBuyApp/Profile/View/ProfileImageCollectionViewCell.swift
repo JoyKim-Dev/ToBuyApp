@@ -17,6 +17,10 @@ final class ProfileImageCollectionViewCell: BaseCollectionViewCell {
         
     }
     
+    deinit{
+        print("ProfileImageCollectionViewCell Deinit")
+    }
+    
     override func configHierarchy() {
         contentView.addSubview(imageView)
     }

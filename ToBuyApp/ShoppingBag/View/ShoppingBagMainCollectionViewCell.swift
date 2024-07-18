@@ -23,18 +23,12 @@ final class ShoppingBagMainCollectionViewCell: BaseCollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        likeBtn.setImage(Icon.likeSelected, for: .normal)
-        likeBtn.backgroundColor = Color.white
-        
-        imageView.layer.cornerRadius = 10
-        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        imageView.layer.masksToBounds = true
-        
-        titleLabel.numberOfLines = 2
-        titleLabel.font = Font.semiBold13
-        
-        priceLabel.font = Font.semiBold14
+
+        print("ShoppingBagMainCollectionViewCell init")
+    }
+    
+    deinit{
+        print("ShoppingBagMainCollectionViewCell Deinit")
     }
     
     override func configHierarchy() {
@@ -68,6 +62,18 @@ final class ShoppingBagMainCollectionViewCell: BaseCollectionViewCell {
     
     func configUI(data: ShoppingBagItemTable) {
         super.configUI()
+        
+        likeBtn.setImage(Icon.likeSelected, for: .normal)
+        likeBtn.backgroundColor = Color.white
+        
+        imageView.layer.cornerRadius = 10
+        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        imageView.layer.masksToBounds = true
+        
+        titleLabel.numberOfLines = 2
+        titleLabel.font = Font.semiBold13
+        
+        priceLabel.font = Font.semiBold14
         
         id = data.id
         

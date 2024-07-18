@@ -106,20 +106,14 @@ class ShoppingNaverManager {
                     
                     do {
                         let result = try JSONDecoder().decode(Product.self, from: data)
-                        print(result)
-                     
-                            completionHandler(.success(result))
+                        completionHandler(.success(result))
                         
                     } catch {
-                        print("error")
                         print(error)
-                        
                         completionHandler(.failure(.invalidData))
-                        
                     }
                 }
             }.resume()
         }
-        
     }
 }

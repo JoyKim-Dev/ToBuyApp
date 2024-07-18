@@ -17,15 +17,9 @@ class BaseViewController: UIViewController {
         configView()
     }
     
-    func configHierarchy() {
-        print("Base", #function)
-    }
+    func configHierarchy() {}
     
-    func configLayout() {
-        print("Base", #function)
-    }
+    func configLayout() {}
     
-    func configView() {
-        print("Base", #function)
-    }
+    func configView() {}
 }

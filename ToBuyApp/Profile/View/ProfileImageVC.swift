@@ -23,7 +23,9 @@ final class ProfileImageVC: BaseViewController {
         
         bindData()
     }
- 
+    deinit{
+        print("ProfileImageVC Deinit")
+    }
     override func configHierarchy() {
         view.addSubview(selectedImageView)
         view.addSubview(profileCollectionView)
@@ -49,8 +51,8 @@ final class ProfileImageVC: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputNavigationTitle.bind { title in
-            self.setNavTitle(title)
+        viewModel.outputNavigationTitle.bind { [weak self] title in
+            self?.setNavTitle(title)
         }
     }
     

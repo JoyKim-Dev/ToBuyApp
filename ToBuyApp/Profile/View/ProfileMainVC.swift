@@ -42,6 +42,10 @@ final class ProfileMainVC:BaseViewController {
         tableView.reloadData()
         
         }
+    
+    deinit{
+        print("profileMainVC Deinit")
+    }
  
     override func configHierarchy() {
         view.addSubview(profileView)
@@ -116,7 +120,6 @@ final class ProfileMainVC:BaseViewController {
             self?.profileImageNumData = value
         }
         viewModel.outputEditedNickname.bind {[weak self] value in
-            print(value)
             self?.profileNameLabel.text = value
         }
         viewModel.outputEditedImage.bind { value in
@@ -165,7 +168,6 @@ extension ProfileMainVC: UITableViewDelegate, UITableViewDataSource {
         case 4:
             AlertManager.showAlert(viewController: self, title: AlertMessage.deleteAccountTitle.text, message: AlertMessage.deleteAccountMessage.text, ok: AlertMessage.answerOK.text) {
                self.viewModel.inputDeleteAccount.value = ()
-              
                 UserDefaultManager.shared.clearUserDefaults()
                 let navOnboardingVC = UINavigationController(rootViewController: OnboardingVC())
                 self.sceneDelegateRootViewTransition(toVC: navOnboardingVC)

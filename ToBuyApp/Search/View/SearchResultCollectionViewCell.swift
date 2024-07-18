@@ -23,9 +23,12 @@ final class SearchResultCollectionViewCell: BaseCollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        print("SearchResultCollectionViewCell init")
 
     }
-
+    deinit{
+        print("SearchResultCollectionViewCell Deinit")
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

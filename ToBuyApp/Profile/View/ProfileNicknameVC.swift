@@ -8,10 +8,11 @@
 import UIKit
 import SnapKit
 
+
 final class ProfileNicknameVC: BaseViewController {
     
     let viewModel = ProfileNicknameViewModel()
-
+    
     private lazy var profileImageView = ProfileImageView(profileImageNum: selectedProfileImageNum, cameraBtnMode: .isShowing, isSelected: true)
     private lazy var nicknameTextField = NicknameTextField(placeholder: Placeholder.nicknameTextField.value)
     private let lineView = LineView()
@@ -20,47 +21,51 @@ final class ProfileNicknameVC: BaseViewController {
     
     var selectedProfileImageNum = UserDefaultManager.profileImage
     private var textIsValid = TextFieldValidation.valid.value
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.inputViewDidLoadTrigger.value = ()
         bindData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
- 
         profileImageView.changeImage(profileNum: selectedProfileImageNum)
-
     }
-    
+    deinit{
+        print("ProfileNicknameVC Deinit")
+    }
     func bindData() {
         
-        viewModel.outputNavigationTitle.bind {  title in
-            self.setNavTitle(title)
+        viewModel.outputNavigationTitle.bind { [weak self] title in
+            self?.setNavTitle(title)
         }
-        viewModel.outputImage.bind { imageNum in
-            self.selectedProfileImageNum = imageNum
-            self.profileImageView.changeImage(profileNum: imageNum)
-                }
-        viewModel.outputNickTextFieldText.bind { nickname in
-            self.nicknameTextField.text = nickname
+        viewModel.outputImage.bind { [weak self] imageNum in
+            self?.selectedProfileImageNum = imageNum
+            self?.profileImageView.changeImage(profileNum: imageNum)
         }
-        viewModel.outputNicknameStatus.bind {  status in
+        viewModel.outputNickTextFieldText.bind { [weak self] nickname in
+            self?.nicknameTextField.text = nickname
+        }
+        viewModel.outputNicknameStatus.bind { [weak self] status in
             print(status)
-                    self.nicknameStatusLabel.text = status
-                    self.textIsValid = status
-                }
-        viewModel.outputSubmitBtn.bind { status in
-            self.submitBtn.isEnabled = status
+            self?.nicknameStatusLabel.text = status
+            self?.textIsValid = status
+        }
+        viewModel.outputSubmitBtn.bind { [weak self] status in
+            self?.submitBtn.isEnabled = status
             print(status)
-            self.submitBtn.toggleOnboardingBtn()
-                }
-//        viewModel.outputImageTapped.bindLater { _ in
-//            let vc = ProfileImageVC()
-//            vc.viewModel.imageDataFromPreviousPage = self.selectedProfileImageNum
-//            vc.viewModel.imageForDelegate = self
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
+            self?.submitBtn.toggleOnboardingBtn()
+        }
+        viewModel.outputSubmitBtnTapped.bind { [weak self] value in
+            if value == "error" {
+                return
+            } else if value == "newMember" {
+                self?.sceneDelegateRootViewTransition(toVC: TabBarController())
+            } else if value == "updateMember" {
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     override func configHierarchy() {
@@ -117,7 +122,7 @@ final class ProfileNicknameVC: BaseViewController {
         
         submitBtn.addTarget(self, action: #selector(submitBtnTapped), for: .touchUpInside)
     }
-
+    
     @objc func imageTapped() {
         viewModel.inputBackBtnTapped.value = ()
         let vc = ProfileImageVC()
@@ -125,40 +130,30 @@ final class ProfileNicknameVC: BaseViewController {
         vc.viewModel.imageForDelegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     @objc func textFieldDidChange(_ sender: UITextField) {
         viewModel.inputtextFieldDidChange.value = sender.text
     }
     
     @objc func submitBtnTapped() {
         print(#function)
-        if nicknameStatusLabel.text != textIsValid {
-            return
-        } else if UserDefaultManager.nickname.isEmpty {
-            UserDefaultManager.nickname = nicknameTextField.text ?? UserDefaultManager.nickname
-            UserDefaultManager.joinedDate = Date()
-            UserDefaultManager.profileImage = selectedProfileImageNum
-            sceneDelegateRootViewTransition(toVC: TabBarController())
-        } else {
-            UserDefaultManager.nickname = nicknameTextField.text ?? UserDefaultManager.nickname
-            UserDefaultManager.profileImage = selectedProfileImageNum
-            navigationController?.popViewController(animated: true)
-        }
+        viewModel.inputSubmitBtnTapped.value = nicknameStatusLabel.text ?? ""
+        viewModel.inputNickName.value = nicknameTextField.text ?? ""
     }
     
     @objc func backBtnTapped() {
         viewModel.inputBackBtnTapped.value = ()
         navigationController?.popViewController(animated: true)
-        }
+    }
     
     @objc func popcurrentPage() {
         navigationController?.popViewController(animated: true)
     }
 }
 extension ProfileNicknameVC: UITextFieldDelegate {
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-      
+        
         if nicknameStatusLabel.text != textIsValid {
             return false
         } else {
@@ -174,6 +169,3 @@ extension ProfileNicknameVC: ImageDelegate {
         selectedProfileImageNum = int
     }
 }
-
-// 화면 전환 로직을 뷰모델에서 하는게 맞? Delegate등을 사용해서 
-// 화면 전환을 담당하는 객체를 별도로? 개념만 알아두기

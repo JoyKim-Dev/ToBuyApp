@@ -30,18 +30,22 @@ final class ProfileMainViewModel {
     
     init() {
         transform()
+        print("profileMainViewModel Init")
     }
     
+    deinit {
+        print("profileMainViewModel Deinit")
+    }
     private func transform() {
         
-        
-        inputDeleteAccount.bind {  [weak self]_ in
+        inputDeleteAccount.bindLater {  [weak self]_ in
             self?.repository.deleteAll()
             print("repository deleted")
         }
         inputViewWillAppear.bind {  [weak self]_ in
             self?.outputEditedNickname.value = UserDefaultManager.nickname
             self?.outputEditedImage.value = UserDefaultManager.profileImage
+            self?.setProfileImage()
         }
         
         inputToEditProfileBtnTapped.bind { [weak self] _ in
@@ -50,16 +54,8 @@ final class ProfileMainViewModel {
         
         inputViewDidLoadTrigger.bind {  [weak self]_ in
             self?.setNavigationTitle()
-        }
-        outputJoinedDate.bind {  [weak self]_ in
             self?.setJoindDate()
-        }
-        
-        outputProfileNickname.bind {  [weak self]_ in
             self?.setProfileTitle()
-        }
-        
-        outputProfileImage.bind {  [weak self]_ in
             self?.setProfileImage()
         }
         

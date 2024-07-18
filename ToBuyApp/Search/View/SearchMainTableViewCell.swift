@@ -16,14 +16,18 @@ final class SearchMainTableViewCell: BaseTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configHierarchy()
-        configLayout()
+    
+        print("SearchMainTableViewCell init")
         
         leftIconImageView.image = Icon.clock
         leftIconImageView.tintColor = Color.black
         deleteBtn.setImage(Icon.xMark, for: .normal)
         deleteBtn.tintColor = Color.black
         deleteBtn.backgroundColor = .white
+    }
+    
+    deinit{
+        print("SearchMainTableViewCell Deinit")
     }
     
     required init?(coder: NSCoder) {
@@ -57,7 +61,7 @@ final class SearchMainTableViewCell: BaseTableViewCell {
         }
     }
     
-    func configUI(searchKeywordRow: Int) {
+    func configUI(searchKeywordRow: Int, searchlist: [String]) {
         super.configUI()
         searchWordLabel.text = UserDefaultManager.searchKeyword[searchKeywordRow]
         searchWordLabel.font = Font.semiBold14

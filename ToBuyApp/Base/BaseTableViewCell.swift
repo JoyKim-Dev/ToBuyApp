@@ -17,17 +17,11 @@ class BaseTableViewCell: UITableViewCell {
         configUI()
     }
     
-    func configHierarchy() {
-        
-    }
+    func configHierarchy() {}
     
-    func configLayout() {
-        
-    }
+    func configLayout() {}
     
-    func configUI() {
-        
-    }
+    func configUI() {}
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {

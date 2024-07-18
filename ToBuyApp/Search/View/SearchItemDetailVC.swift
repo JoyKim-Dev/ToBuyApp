@@ -25,6 +25,10 @@ final class SearchItemDetailVC: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         configView()
     }
+    
+    deinit{
+        print("SearchItemDetailVC Deinit")
+    }
 
     override func configHierarchy() {
         view.addSubview(webView)
@@ -56,7 +60,6 @@ final class SearchItemDetailVC: BaseViewController {
     }
     @objc func navLikeBtnTapped() {
         viewModel.inputNavCartBtnTapped.value = ()
-        
     }
 }
 

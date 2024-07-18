@@ -28,17 +28,16 @@ final class ShoppingBagMainViewModel {
     init() {
       
         transform()
+        print("ShoppingBagMainViewModel init")
     }
     
     deinit {
-        print("deinit")
+        print("ShoppingBagMainViewModel deinit")
     }
     private func transform() {
         
         inputViewDidLoadTrigger.bind { [weak self] _ in
             self?.setNavigationTitle()
-            self?.fetchCategoryList()
-            self?.fetchShoppingList()
         }
         inputLikeBtnTapped.bind { [weak self] _ in
             self?.likeBtnValidation()
@@ -50,6 +49,7 @@ final class ShoppingBagMainViewModel {
         
         inputViewWillAppear.bind { [weak self] _ in
             self?.setNavigationTitle()
+            
         }
     }
     
@@ -75,14 +75,12 @@ final class ShoppingBagMainViewModel {
             }
             
             if category.detail.count == 1 {
+                category.detail.removeAll()
                 categoryRepository.removeCategory(category)
             } else if category.detail.count > 1 {
                 repository.deleteItem(id: all[index].id)
                 print("Product deleted")
             }
-            
-            fetchShoppingList()
-            fetchCategoryList()
         }
     
     private func searchBarFilter() {

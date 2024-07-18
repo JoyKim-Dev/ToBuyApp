@@ -27,24 +27,27 @@ final class SearchResultViewModel {
     
     init() {
         transform()
+        print("SearchResultViewModel deinit")
     }
     
     deinit {
-        print("deinit")
+        print("SearchResultViewModel deinit")
     }
     private func transform() {
         
         inputViewDidLoadTrigger.bind { [weak self] _ in
             self?.callRequest()
             self?.setNavigationTitle()
-            
         }
+        
         inputFilterBtnType.bind { [weak self] _ in
             self?.callRequest()
         }
+        
         inputLikeBtnTapped.bind { [weak self] _ in
             self?.shoppingItemValidation()
         }
+        
         inputCollectionViewDataPrefetching.bind { [weak self] _ in
             self?.paginationCallRequest()
         }
@@ -65,8 +68,7 @@ final class SearchResultViewModel {
                     } else {
                         self.outputList.value.append(contentsOf: data.items)
                     }
-                    
-                    
+     
                 case .failure(let failure):
                     self.outputError.value = failure.self
                     print(failure.message,failure.title)

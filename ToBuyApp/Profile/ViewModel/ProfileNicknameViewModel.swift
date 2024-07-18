@@ -8,10 +8,13 @@
 import Foundation
 
 final class ProfileNicknameViewModel {
-
+    
+    var inputViewDidLoadTrigger = Observable(())
+    var inputNickName = Observable("")
     var inputBackBtnTapped: Observable<Void?> = Observable(nil)
     var inputtextFieldDidChange: Observable<String?> = Observable("")
     var inputImageTapped: Observable<Void?> = Observable(nil)
+    var inputSubmitBtnTapped: Observable<String> = Observable("")
     
     var outputImageTapped: Observable<Void?> = Observable(nil)
     var outputNavigationTitle: Observable<String> = Observable("")
@@ -19,23 +22,26 @@ final class ProfileNicknameViewModel {
     var outputImage: Observable<Int> = Observable(0)
     var outputSubmitBtn: Observable<Bool> = Observable(false)
     var outputNicknameStatus: Observable<String> = Observable("")
+    var outputSubmitBtnTapped: Observable<String> = Observable("")
     
     init() {
         transform()
+        print("ProfileNicknameViewModel init")
+    }
+    
+    deinit{
+        print("ProfileNicknameViewModel Deinit")
     }
     private func transform() {
         
+        inputViewDidLoadTrigger.bind {  [weak self] _ in
+            self?.setNavigationTitle()
+            self?.nicknameTextFieldText()
+            self?.selectImage()
+        }
+        
         inputImageTapped.bind {  [weak self] _ in
             self?.outputImageTapped.value  = ()
-        }
-        outputNavigationTitle.bind {  [weak self] _ in
-            self?.setNavigationTitle()
-        }
-        outputNickTextFieldText.bind {  [weak self] _ in
-            self?.nicknameTextFieldText()
-        }
-        outputImage.bind {[weak self] _ in
-            self?.selectImage()
         }
         inputtextFieldDidChange.bind {  [weak self] _ in
             self?.nicknameValidation()
@@ -43,6 +49,13 @@ final class ProfileNicknameViewModel {
         inputBackBtnTapped.bind {  [weak self] _ in
             self?.resetSelectedImage()
         }
+        inputSubmitBtnTapped.bind { [weak self] _ in
+            self?.submitBtnTapped()
+        }
+        inputNickName.bind { [weak self] _ in
+            self?.submitBtnTapped()
+        }
+        
     }
     
     private func setNavigationTitle() {
@@ -117,4 +130,21 @@ final class ProfileNicknameViewModel {
             outputSubmitBtn.value = true
         }
     }
+    private func submitBtnTapped() {
+        
+        if inputSubmitBtnTapped.value != TextFieldValidation.valid.value {
+            outputSubmitBtnTapped.value = "error"
+            return
+        } else if UserDefaultManager.nickname.isEmpty {
+            UserDefaultManager.nickname = inputNickName.value
+            UserDefaultManager.joinedDate = Date()
+            UserDefaultManager.profileImage = outputImage.value
+            outputSubmitBtnTapped.value = "newMember"
+        } else {
+            UserDefaultManager.nickname = inputNickName.value
+            UserDefaultManager.profileImage = outputImage.value
+            outputSubmitBtnTapped.value = "updateMember"
+        }
+    }
 }
+

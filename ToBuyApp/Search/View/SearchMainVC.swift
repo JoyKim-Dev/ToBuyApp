@@ -32,19 +32,23 @@ final class SearchMainVC:BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.inputViewDidLoadTrigger.value = ()
         bindData()
+    }
+    
+    deinit{
+        print("SearchMainVC Deinit")
     }
     override func viewWillAppear(_ animated: Bool) {
         viewModel.inputViewWillAppear.value = ()
-        reloadSearchView()
         listTableView.reloadData()
     }
     override func configHierarchy() {
-        view.addSubview(searchBar)
         view.addSubview(lineView)
-        view.addSubview(listTableView)
         view.addSubview(emptylistImageView)
         view.addSubview(noSearchWordLabel)
+        view.addSubview(listTableView)
+        view.addSubview(searchBar)
     }
     
     override func configLayout() {
@@ -99,9 +103,6 @@ final class SearchMainVC:BaseViewController {
         viewModel.outputNavigationTitle.bind { [weak self] value in
             self?.setNavTitle(value)
         }
-        viewModel.outputEditedNavigationTitle.bind { [weak self] value in
-            self?.setNavTitle(value)
-        }
         viewModel.outputSearchBarValidationResult.bindLater { [weak self] bool in
             if bool {
                 let vc = SearchResultVC()
@@ -114,22 +115,24 @@ final class SearchMainVC:BaseViewController {
             }
         }
         
-        viewModel.outputTableViewStatus.bind { bool in
-            self.listTableView.isHidden = bool
+        viewModel.outputTableViewStatus.bind { [weak self] bool in
+            self?.listTableView.isHidden = bool
         }
-        viewModel.outputImageViewStatus.bind { bool in
-            self.emptylistImageView.isHidden = bool
+        viewModel.outputImageViewStatus.bind { [weak self] bool in
+            self?.emptylistImageView.isHidden = bool
         }
-        viewModel.outputNoSearchWordLabelStatus.bind { bool in
-            self.noSearchWordLabel.isHidden = bool
+        viewModel.outputNoSearchWordLabelStatus.bind {[weak self]  bool in
+            self?.noSearchWordLabel.isHidden = bool
         }
-        viewModel.outputSearchBarText.bind { text in
-            self.searchBar.text = text
+        viewModel.outputSearchBarText.bind { [weak self] text in
+            self?.searchBar.text = text
+        }
+        viewModel.outputSearchList.bind { [weak self] _ in
+            self?.listTableView.reloadData()
         }
     }
     
     private func reloadSearchView() {
-        
         viewModel.inputReloadSearchView.value = ()
     }
     
@@ -175,12 +178,13 @@ extension SearchMainVC: UITableViewDelegate, UITableViewDataSource {
         return headerView
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return UserDefaultManager.searchKeyword.count
+        print(UserDefaultManager.searchKeyword.count)
+        return viewModel.outputSearchList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchMainTableViewCell.identifier , for: indexPath) as! SearchMainTableViewCell
-        cell.configUI(searchKeywordRow: indexPath.row)
+        cell.configUI(searchKeywordRow: indexPath.row, searchlist: viewModel.outputSearchList.value)
         cell.deleteBtn.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
         return cell
     }
@@ -188,7 +192,7 @@ extension SearchMainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = SearchResultVC()
-        vc.viewModel.inputSearchwordFromPreviousPage.value = UserDefaultManager.searchKeyword[indexPath.item]
+        vc.viewModel.inputSearchwordFromPreviousPage.value = viewModel.outputSearchList.value[indexPath.item]
         navigationController?.pushViewController(vc, animated: true)
     }
     

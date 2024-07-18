@@ -9,6 +9,7 @@ import Foundation
 
 final class SearchMainViewModel {
     
+    var inputViewDidLoadTrigger: Observable<Void?> = Observable(nil)
     var inputViewWillAppear: Observable<Void?> = Observable(nil)
     var inputDeleteBtnTapped: Observable<Int> = Observable(0)
     var inputDeleteAllTapped: Observable<Void?> = Observable(nil)
@@ -17,29 +18,32 @@ final class SearchMainViewModel {
     var inputSearchBarShouldEndEditing: Observable<String> = Observable("")
     
     var outputNavigationTitle: Observable<String> = Observable("")
-    var outputEditedNavigationTitle: Observable<String> = Observable("")
+   // var outputEditedNavigationTitle: Observable<String> = Observable("")
     var outputSearchBarValidationResult: Observable<Bool> = Observable(true)
     var outputTableViewStatus: Observable<Bool> = Observable(true)
     var outputImageViewStatus: Observable<Bool> = Observable(true)
     var outputNoSearchWordLabelStatus: Observable<Bool> = Observable(true)
     var outputSearchBarText: Observable<String> = Observable("")
     var outputSearchBarShouldEndEditing: Observable<Bool> = Observable(true)
+    var outputSearchList: Observable<[String]> = Observable([])
     
     
     init() {
         transform()
+        print("SearchMainViewModel init")
     }
     
     deinit {
-        print("deinit")
+        print("SearchMainViewModel deinit")
     }
     private func transform() {
-        outputNavigationTitle.bind { [weak self] _ in
+        
+        inputViewDidLoadTrigger.bind { [weak self] _ in
             self?.setNavigationTitle()
         }
         
         inputViewWillAppear.bind { [weak self] _ in
-            self?.outputEditedNavigationTitle.value = "\(UserDefaultManager.nickname)'s ToBuyBag"
+            self?.setNavigationTitle()
         }
         
         //        inputDeleteBtnTapped.bind{ _ in
@@ -60,6 +64,9 @@ final class SearchMainViewModel {
         inputSearchBarShouldEndEditing.bind { [weak self] _ in
             self?.searchBarShouldReturnValidation()
         }
+        outputSearchList.bind { [weak self] _ in
+            self?.fetchSearchHistoryLIst()
+        }
         
     }
     
@@ -76,7 +83,9 @@ final class SearchMainViewModel {
     private func deleteSearchHistory() {
         UserDefaultManager.searchKeyword.removeAll()
     }
-    
+    private func fetchSearchHistoryLIst() {
+        outputSearchList.value = UserDefaultManager.searchKeyword
+    }
     private func searchBarValidation() {
         let trimmedText = inputSearchBtnClicked.value.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmedText.isEmpty {
@@ -87,7 +96,7 @@ final class SearchMainViewModel {
             
             UserDefaultManager.searchKeyword.remove(at: index)
             UserDefaultManager.searchKeyword.insert(inputSearchBtnClicked.value, at: 0)
-            self.outputSearchBarText.value = ""
+//            self.outputSearchBarText.value = ""
             self.outputSearchBarValidationResult.value = true
         } else {
             self.outputSearchBarValidationResult.value = false
@@ -112,6 +121,20 @@ final class SearchMainViewModel {
             outputSearchBarShouldEndEditing.value = false
         } else {
             outputSearchBarShouldEndEditing.value = true
+            let trimmedText = inputSearchBarShouldEndEditing.value.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmedText.isEmpty {
+                guard let index = UserDefaultManager.searchKeyword.firstIndex(where: { $0 == trimmedText }) else { UserDefaultManager.searchKeyword.insert(inputSearchBtnClicked.value, at: 0)
+                    self.outputSearchBarText.value = ""
+                    self.outputSearchBarValidationResult.value = true
+                    return }
+                
+                UserDefaultManager.searchKeyword.remove(at: index)
+                UserDefaultManager.searchKeyword.insert(inputSearchBtnClicked.value, at: 0)
+    //            self.outputSearchBarText.value = ""
+                self.outputSearchBarValidationResult.value = true
+            } else {
+                self.outputSearchBarValidationResult.value = false
+            }
         }
     }
 }

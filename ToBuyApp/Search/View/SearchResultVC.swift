@@ -41,6 +41,10 @@ final class SearchResultVC: BaseViewController {
         searchResultCollectionView.reloadData()
     }
     
+    deinit{
+        print("SearchResultViewModel Deinit")
+    }
+    
     override func configHierarchy() {
         
         view.addSubview(numberOfResultLabel)

@@ -16,8 +16,11 @@ final class ShoppingBagTableViewCell: BaseTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        print("ShoppingBagTableViewCell init")
     }
-    
+    deinit{
+        print("ShoppingBagTableViewCell Deinit")
+    }
     override func configHierarchy() {
         contentView.addSubview(brandLabel)
         contentView.addSubview(collectionView)
@@ -36,7 +39,6 @@ final class ShoppingBagTableViewCell: BaseTableViewCell {
     
     func configUI(data: Category) {
         super.configUI()
-        print(data)
         brandLabel.text = data.category
         brandLabel.backgroundColor = Color.orange
         brandLabel.textColor = Color.white

@@ -47,7 +47,9 @@ final class ShoppingBagMainVC: BaseViewController {
         tableView.reloadData()
         configView()
     }
-    
+    deinit{
+        print("ShoppingBagMainVC Deinit")
+    }
     override func configHierarchy() {
         view.addSubview(searchBar)
         view.addSubview(tableView)

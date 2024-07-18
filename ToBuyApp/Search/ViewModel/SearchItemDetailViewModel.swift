@@ -26,6 +26,11 @@ final class SearchItemDetailViewModel {
     
     init() {
         transform()
+        print("SearchItemDetailViewModel init")
+    }
+    
+    deinit{
+        print("SearchItemDetailViewModel Deinit")
     }
     
     private func transform() {

@@ -12,7 +12,8 @@ import RealmSwift
 
 final class ProfileMainTableViewCell: BaseTableViewCell {
     
-    private let viewModel = ProfileMainTableViewCellViewModel()
+
+    private let repository = ShoppingBagRepository.shared
     private let label = UILabel()
     private let bagBtn = {
         let view = UIButton()
@@ -24,8 +25,12 @@ final class ProfileMainTableViewCell: BaseTableViewCell {
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        print("ProfileMainTableViewCellinit")
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    }
+    
+    deinit{
+        print("ProfileMainTableViewCell deinit")
     }
     
     required init?(coder: NSCoder) {
@@ -58,10 +63,7 @@ final class ProfileMainTableViewCell: BaseTableViewCell {
         
         if indexPath == 0 {
             bagBtn.isHidden = false
-            viewModel.outputShoppingBagItemCount.bind { value in
-                self.bagBtn.setTitle("\(value)개의 상품", for: .normal)
-            }
-            
+            bagBtn.setTitle("\(repository.fetchAlls().count)개의 상품", for: .normal)
         } else {
             bagBtn.isHidden = true
            
